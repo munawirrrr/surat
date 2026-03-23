@@ -1,0 +1,5 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "kembali",
+	"beforeJsCode": "window.history.back();"
+}

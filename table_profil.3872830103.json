@@ -1,0 +1,7864 @@
+{
+	"sql": "SELECT\nNSM,\n`tingkat madrasah`,\n`Status Madrasah`,\n`Nomor Telpon`,\n`Alamat Madrasah`,\n`Nama Kepala`,\n`Nip Kepala`,\nkecamatan,\nKota AS desa,\nNPSN,\n`nama satker`,\n`nama yayasan`,\n`alamat yayasan`,\n`nama ketua yayasan`,\n`tempat_tanggal lahir ketua`,\n`pekerjaan ketua yayasan`,\n`nik ketua yayasan`,\n`alamat ketua yayasan`,\n`telepon ketua yayasan`,\n`kode pos`,\n`peringkat akreditasi`,\n`izin operasional`,\n`tgl izin operasional`,\n`tanggal batas izin`,\nDATEDIFF(`tanggal batas izin`, NOW()) AS `sisa waktu`,\nCASE\n  WHEN `tanggal batas izin` >= CURDATE() THEN\n    CONCAT(\n      \"(\",\n      TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`), \" Tahun \",\n      MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12), \" Bulan \",\n      DATEDIFF(\n        `tanggal batas izin`,\n        DATE_ADD(\n          DATE_ADD(CURDATE(),\n            INTERVAL TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`) YEAR),\n            INTERVAL MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12) MONTH\n        )\n      ), \" Hari lagi)\"\n    )\n  ELSE\n    CONCAT(\n      \"(\",\n      ABS(TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`)), \" Tahun \",\n      ABS(MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12)), \" Bulan \",\n      ABS(DATEDIFF(\n        `tanggal batas izin`,\n        DATE_ADD(\n          DATE_ADD(CURDATE(),\n            INTERVAL TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`) YEAR),\n            INTERVAL MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12) MONTH\n        )\n      )), \" Hari yang lalu)\"\n    )\nEND AS limit_waktu,\nif(DATEDIFF(`tanggal batas izin`, NOW())<0, \"Izin operasional sudah mati, harap proses perpanjangan ke Kankemenag Kab.Pidie, syarat2 nya silahkan buka menu format permohonan\", \"\") AS Catatan,\nROW_NUMBER() OVER (ORDER BY NSM) AS `no`,\nakte_dan_sk_menkumham,\nnomor_dan_tanggal_sk_menkumham,\nnomor_dan_tanggal_akte,\nttd AS info_edit_user,\n`nama Madrasah`\nFROM profil\nWHERE (NSM <>\"-\")",
+	"connId": "keme8950izopatkemenagpidiecom",
+	"originalTable": "profil",
+	"name": "profil",
+	"shortTableName": "profil",
+	"caseSensitiveSearch": "",
+	"tableOwnerIdField": "NSM",
+	"usersOwnerIdField": "username",
+	"advancedSecurityType": 1,
+	"pageSizeSelectorRecords": [
+		"10",
+		"20",
+		"30",
+		"50",
+		"100",
+		"500",
+		"-1"
+	],
+	"pageSizeSelectorGroups": [
+		"1",
+		"3",
+		"5",
+		"10",
+		"50",
+		"100",
+		"-1"
+	],
+	"keyFields": [
+		"NSM"
+	],
+	"detailsBadgeColor": "9ACD32",
+	"detailsTables": [
+		162369719
+	],
+	"fields": [
+		{
+			"name": "NSM",
+			"sqlExpression": "NSM",
+			"strField": "NSM",
+			"type": 200,
+			"separateEditViewFormats": true,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				},
+				{
+					"pageType": "list",
+					"numberFractionalDigits": 0
+				},
+				{
+					"pageType": "print",
+					"numberFractionalDigits": 0
+				},
+				{
+					"format": "Custom",
+					"pageType": "export",
+					"customExpression": "$value =\"_\". $data[\"NSM\"];",
+					"numberFractionalDigits": 0
+				},
+				{
+					"pageType": "masterlist",
+					"numberFractionalDigits": 0
+				},
+				{
+					"pageType": "masterprint",
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				},
+				{
+					"format": "Readonly",
+					"pageType": "add",
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				},
+				{
+					"format": "Readonly",
+					"pageType": "search",
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "NSM",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "NSM"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "tingkat madrasah",
+			"sqlExpression": "`tingkat madrasah`",
+			"strField": "tingkat madrasah",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "tingkat madrasah",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Tingkat Madrasah"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "Status Madrasah",
+			"sqlExpression": "`Status Madrasah`",
+			"strField": "Status Madrasah",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"textboxMaxLenth": 20,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "Status Madrasah",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Status Madrasah"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "Nomor Telpon",
+			"sqlExpression": "`Nomor Telpon`",
+			"strField": "Nomor Telpon",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "Nomor Telpon",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nomor Telpon"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "Alamat Madrasah",
+			"sqlExpression": "`Alamat Madrasah`",
+			"strField": "Alamat Madrasah",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "Alamat Madrasah",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Alamat Madrasah"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "Nama Kepala",
+			"sqlExpression": "`Nama Kepala`",
+			"strField": "Nama Kepala",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "Nama Kepala",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nama Kepala"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "Nip Kepala",
+			"sqlExpression": "`Nip Kepala`",
+			"strField": "Nip Kepala",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 20,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "Nip Kepala",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nip Kepala"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "kecamatan",
+			"sqlExpression": "kecamatan",
+			"strField": "kecamatan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Kecamatan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "desa",
+			"sqlExpression": "Kota",
+			"strField": "Kota",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Desa"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": "isi nama desa/kota sebagai tempat pedoman tanda tangan"
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "NPSN",
+			"sqlExpression": "NPSN",
+			"strField": "NPSN",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "NPSN",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "NPSN"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nama satker",
+			"sqlExpression": "`nama satker`",
+			"strField": "nama satker",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"required": true,
+					"textboxMaxLenth": 300,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "nama satker",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nama Satker"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nama yayasan",
+			"sqlExpression": "`nama yayasan`",
+			"strField": "nama yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0,
+					"textShowFirst": false
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 200,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "nama yayasan",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nama Yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "alamat yayasan",
+			"sqlExpression": "`alamat yayasan`",
+			"strField": "alamat yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Alamat Yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nama ketua yayasan",
+			"sqlExpression": "`nama ketua yayasan`",
+			"strField": "nama ketua yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "nama ketua yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "tempat_tanggal lahir ketua",
+			"sqlExpression": "`tempat_tanggal lahir ketua`",
+			"strField": "tempat_tanggal lahir ketua",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "tempat_tanggal lahir ketua"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "pekerjaan ketua yayasan",
+			"sqlExpression": "`pekerjaan ketua yayasan`",
+			"strField": "pekerjaan ketua yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "pekerjaan ketua yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nik ketua yayasan",
+			"sqlExpression": "`nik ketua yayasan`",
+			"strField": "nik ketua yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "nik ketua yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "alamat ketua yayasan",
+			"sqlExpression": "`alamat ketua yayasan`",
+			"strField": "alamat ketua yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "alamat ketua yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "telepon ketua yayasan",
+			"sqlExpression": "`telepon ketua yayasan`",
+			"strField": "telepon ketua yayasan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "telepon ketua yayasan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "kode pos",
+			"sqlExpression": "`kode pos`",
+			"strField": "kode pos",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textboxMaxLenth": 20,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "kode pos",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Kode Pos"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "peringkat akreditasi",
+			"sqlExpression": "`peringkat akreditasi`",
+			"strField": "peringkat akreditasi",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Lookup wizard",
+					"required": true,
+					"textboxMaxLenth": 2,
+					"textHTML5Input": "0",
+					"lookupType": 0,
+					"lookupValues": [
+						"A",
+						"B",
+						"C",
+						"D",
+						"E",
+						"Belum Akreditasi"
+					],
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "peringkat akreditasi",
+			"label": {
+				"Indonesian": "Peringkat Akreditasi"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "izin operasional",
+			"sqlExpression": "`izin operasional`",
+			"strField": "izin operasional",
+			"type": 200,
+			"viewFormats": [
+				{
+					"format": "Document Download",
+					"fileCustomExpression": "$value = \"\";",
+					"fileShowCustom": true,
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Document upload",
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileTypes": [
+						"pdf"
+					],
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"deleteFile": true,
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Izin Operasional"
+			},
+			"tooltip": {
+				"Indonesian": "file pdf"
+			},
+			"placeholder": {
+				"Indonesian": "file pdf"
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "tgl izin operasional",
+			"sqlExpression": "`tgl izin operasional`",
+			"strField": "tgl izin operasional",
+			"type": 7,
+			"viewFormats": [
+				{
+					"format": "Short Date",
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Date",
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"dateEditType": 5,
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"label": {
+				"Indonesian": "Tgl Izin Operasional"
+			},
+			"tooltip": {
+				"Indonesian": "tanggal tanda tangan kanwil"
+			},
+			"placeholder": {
+				"Indonesian": "tanggal tanda tangan kanwil"
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "tanggal batas izin",
+			"sqlExpression": "`tanggal batas izin`",
+			"strField": "tanggal batas izin",
+			"type": 200,
+			"viewFormats": [
+				{
+					"format": "Short Date",
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Date",
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"dateEditType": 5,
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"label": {
+				"Indonesian": "tanggal batas izin"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "sisa waktu",
+			"sqlExpression": "DATEDIFF(`tanggal batas izin`, NOW())",
+			"strField": "sisa waktu",
+			"type": 3,
+			"viewFormats": [
+				{
+					"format": "Custom",
+					"customExpression": "$value = $data[\"sisa waktu\"].\" Hari \";",
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"validateAs": "Number",
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"denyDuplicateMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Sisa Waktu"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": ""
+		},
+		{
+			"name": "limit_waktu",
+			"sqlExpression": "CASE\n  WHEN `tanggal batas izin` >= CURDATE() THEN\n    CONCAT(\n      \"(\",\n      TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`), \" Tahun \",\n      MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12), \" Bulan \",\n      DATEDIFF(\n        `tanggal batas izin`,\n        DATE_ADD(\n          DATE_ADD(CURDATE(),\n            INTERVAL TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`) YEAR),\n            INTERVAL MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12) MONTH\n        )\n      ), \" Hari lagi)\"\n    )\n  ELSE\n    CONCAT(\n      \"(\",\n      ABS(TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`)), \" Tahun \",\n      ABS(MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12)), \" Bulan \",\n      ABS(DATEDIFF(\n        `tanggal batas izin`,\n        DATE_ADD(\n          DATE_ADD(CURDATE(),\n            INTERVAL TIMESTAMPDIFF(YEAR, CURDATE(), `tanggal batas izin`) YEAR),\n            INTERVAL MOD(TIMESTAMPDIFF(MONTH, CURDATE(), `tanggal batas izin`), 12) MONTH\n        )\n      )), \" Hari yang lalu)\"\n    )\nEND",
+			"strField": "limit_waktu",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"denyDuplicateMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Limit Waktu"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": ""
+		},
+		{
+			"name": "Catatan",
+			"sqlExpression": "if(DATEDIFF(`tanggal batas izin`, NOW())<0, \"Izin operasional sudah mati, harap proses perpanjangan ke Kankemenag Kab.Pidie, syarat2 nya silahkan buka menu format permohonan\", \"\")",
+			"strField": "Catatan",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0,
+					"textShowFirst": false
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Catatan"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": ""
+		},
+		{
+			"name": "no",
+			"sqlExpression": "ROW_NUMBER() OVER (ORDER BY NSM)",
+			"strField": "no",
+			"type": 3,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"validateAs": "Number",
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"denyDuplicateMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "No"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": ""
+		},
+		{
+			"name": "akte_dan_sk_menkumham",
+			"sqlExpression": "akte_dan_sk_menkumham",
+			"strField": "akte_dan_sk_menkumham",
+			"type": 200,
+			"viewFormats": [
+				{
+					"format": "Document Download",
+					"fileCustomExpression": "$value = \"\";",
+					"fileShowCustom": true,
+					"fileShowPdf": true,
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Document upload",
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileTypes": [
+						"pdf"
+					],
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"deleteFile": true,
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Akte Dan Sk Menkumham"
+			},
+			"tooltip": {
+				"Indonesian": "<p><strong style=\"color: rgb(230, 0, 0);\">scan pdf sk menkumham &amp; akte notaris yang jelas (gabung dalam 1 file pdf)</strong></p>"
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nomor_dan_tanggal_sk_menkumham",
+			"sqlExpression": "nomor_dan_tanggal_sk_menkumham",
+			"strField": "nomor_dan_tanggal_sk_menkumham",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nomor Dan Tanggal Sk Menkumham"
+			},
+			"tooltip": {
+				"Indonesian": "<p><a style=\"color: rgb(230, 0, 0);\" href=\"https://drive.google.com/file/d/1Gl9YD7Rls1O20htMrueZdFmakG3RryBv/view?usp=drive_link\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>CONTOH SK MENKUMHAM(PENGESAHAN AKTE)</strong></a></p>"
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nomor_dan_tanggal_akte",
+			"sqlExpression": "nomor_dan_tanggal_akte",
+			"strField": "nomor_dan_tanggal_akte",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"required": true,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nomor Dan Tanggal Akte"
+			},
+			"tooltip": {
+				"Indonesian": "Contoh : Nomor 12 Tahun 2015. Tanggal 02 Januari 2015, Sri Susilowati, SH"
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "info_edit_user",
+			"sqlExpression": "ttd",
+			"strField": "ttd",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"format": "Readonly",
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Info Edit User"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		},
+		{
+			"name": "nama Madrasah",
+			"sqlExpression": "`nama Madrasah`",
+			"strField": "nama Madrasah",
+			"type": 200,
+			"viewFormats": [
+				{
+					"numberFractionalDigits": 0
+				}
+			],
+			"editFormats": [
+				{
+					"validateRegexMessage": {
+						"text": "",
+						"type": 0
+					},
+					"denyDuplicateMessage": {
+						"text": "",
+						"type": 0
+					},
+					"textboxMaxLenth": 50,
+					"textHTML5Input": "0",
+					"fileMaxNumber": 1,
+					"fileThumbnailField": "th",
+					"timeConvention": 1
+				}
+			],
+			"filterFormat": {
+				"format": "Values list"
+			},
+			"sourceSingle": "nama Madrasah",
+			"defaultSearchOption": "Contains",
+			"label": {
+				"Indonesian": "Nama Madrasah"
+			},
+			"tooltip": {
+				"Indonesian": ""
+			},
+			"placeholder": {
+				"Indonesian": ""
+			},
+			"tableName": "profil"
+		}
+	],
+	"warnLeavingEdit": true,
+	"afterEditAction": 0,
+	"afterEditDetails": 10,
+	"afterAddDetail": 1,
+	"whereTabs": [
+		{
+			"title": {
+				"text": "Semua Data",
+				"type": 0
+			},
+			"id": "1012110700",
+			"showCount": true
+		},
+		{
+			"title": {
+				"text": "izop tinggal 1 bulan",
+				"type": 0
+			},
+			"where": "DATEDIFF((DATE_ADD(`tgl izin operasional`, INTERVAL 4 year)),CURDATE()) between 1 and 30",
+			"id": "23233",
+			"showCount": true,
+			"hideEmpty": true
+		},
+		{
+			"title": {
+				"text": "izop sudah lewat limit",
+				"type": 0
+			},
+			"where": "DATEDIFF((DATE_ADD(`tgl izin operasional`, INTERVAL 4 year)),CURDATE()) <1",
+			"id": "10121107001",
+			"showCount": true,
+			"hideEmpty": true
+		},
+		{
+			"title": {
+				"text": "Belum Upload Izop",
+				"type": 0
+			},
+			"where": "`status madrasah` = \"swasta\" and `tgl izin operasional` =\"0000-00-00\"",
+			"id": "10121107002",
+			"showCount": true,
+			"hideEmpty": true
+		}
+	],
+	"eventHandlers": [
+		{
+			"eventId": "EVENT_JS_ONLOAD",
+			"pageType": "list",
+			"code": "this.on('afterInlineadd', function( fieldsData ) {\n                       location.reload();\n                } )\n                \n                this.on('afterInlineEdit', function( fieldsData ) {\n                       location.reload();\n                } )\n                \n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets."
+		},
+		{
+			"eventId": "EVENT_BEFOREMOVENEXT_LIST",
+			"pageType": "list",
+			"code": "if ($data['Status Madrasah'] !='swasta') {\n$pageObject->hideField(\"izin operasional\");\n$pageObject->hideField(\"tgl izin operasional\");\n$pageObject->hideField(\"tanggal batas izin\");\n$pageObject->hideField(\"sisa waktu\");}\n\n\n\nif (Security::getUserName()!=\"admin\"){\n$pageObject->hideItem(\"grid_field6\", $recordId);\n}\n\n//\n\n\n\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets."
+		},
+		{
+			"eventId": "EVENT_BEFOREEDIT",
+			"pageType": "edit",
+			"code": "$fileArray = my_json_decode($values[\"izin operasional\"]); \n\nfor($i = 0; $i < count($fileArray); $i++)\n{\n  $fileArray[$i][\"usrName\"] = strtolower($fileArray[$i][\"usrName\"]);\n}\n$values[\"izin operasional\"] = my_json_encode($fileArray);\n\n$fileArray = my_json_decode($values[\"izin operasional\"]);\n\nfor($i = 0; $i < count($fileArray); $i++)\n{\n  $fileName = $fileArray[$i][\"name\"];\n  $newFileName = \"files/\".$values[\"nama satker\"].\"_izop terakhir diprofil.pdf\";\n   rename($fileName, getabspath($newFileName));\n  $fileArray[$i][\"name\"] = $newFileName;\n}\n\n$values[\"izin operasional\"] = my_json_encode($fileArray);\n\n\n\n\n//UBAH NAMA FILE AKTE\n\n\n\n$fileArray = my_json_decode($values[\"akte_dan_sk_menkumham\"]); \n\nfor($i = 0; $i < count($fileArray); $i++)\n{\n  $fileArray[$i][\"usrName\"] = strtolower($fileArray[$i][\"usrName\"]);\n}\n$values[\"akte_dan_sk_menkumham\"] = my_json_encode($fileArray);\n\n$fileArray = my_json_decode($values[\"akte_dan_sk_menkumham\"]);\n\nfor($i = 0; $i < count($fileArray); $i++)\n{\n  $fileName = $fileArray[$i][\"name\"];\n  $newFileName = \"files/\".$values[\"nama yayasan\"].\"_akte.pdf\";\n   rename($fileName, getabspath($newFileName));\n  $fileArray[$i][\"name\"] = $newFileName;\n}\n\n$values[\"akte_dan_sk_menkumham\"] = my_json_encode($fileArray);\n\n\n\n\n\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets.\n\nreturn true;"
+		},
+		{
+			"eventId": "EVENT_JS_ONLOAD",
+			"pageType": "edit",
+			"code": "var ctrl = Runner.getControl(pageid, \"Status Madrasah\");\nif(ctrl.getValue() != \"swasta\")\npageObj.toggleItem(\"izop\", false );\n\nctrl.on('change', function(){\nif (this.getValue() == \"swasta\"){\n pageObj.toggleItem(\"izop\", true );\n}\nelse {\n   pageObj.toggleItem(\"izop\", false );\n}   \n});\n\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets.\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets.\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets."
+		},
+		{
+			"eventId": "EVENT_BEFORESHOW_VIEW",
+			"pageType": "view",
+			"code": "if ($values['status'] =='belum diproses') {\n        $pageObject->hideField(\"izin operasional\");\n        $pageObject->hideField(\"tgl izin operasional\");}\n\n\n\n\n//\n\nif (Security::getUserGroup() == \"Sispendik\" && empty($values[\"nomor_dan_tanggal_akte\"])) {\n    echo '\n        <script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script>\n        <script>\n            document.addEventListener(\"DOMContentLoaded\", function() {\n                Swal.fire({\n                    icon: \"warning\",\n                    title: \"Peringatan, Data Profil Madrasah/RA Belum Lengkap\",\n                    text: \"Klik OK untuk lengkapi data profil dulu.\",\n                    confirmButtonText: \"OK\",\n                    allowOutsideClick: false\n                }).then((result) => {\n                    if (result.isConfirmed) {\n                        window.location.href = \"profil_edit.php\";\n                    }\n                });\n            });\n        </script>\n    ';\n    return false; // Penting jika ini dipakai di BeforeAdd atau BeforeEdit\n}"
+		},
+		{
+			"eventId": "EVENT_BEFORESHOW_EDIT",
+			"pageType": "edit",
+			"code": "if (Security::getUserName()!=\"admin\"){\n$pageObject->hideItem(\"edit1\");\n$pageObject->hideItem(\"menu\");\n\n\n\n}\n\n\n\n\n\n\n\n\n\n// Place event code here.\n// Use \"Add Action\" button to add code snippets."
+		},
+		{
+			"eventId": "EVENT_AFTEREDIT",
+			"pageType": "edit",
+			"code": "if (Security::getUserName() != \"admin\" && $values[\"izin operasional\"] != $oldvalues[\"izin operasional\"]) {\n        $ttd_value = \"izin operasional di ubah Madrasah, harap ubah tanggal izin\";\n    } else {\n        $ttd_value = \"\";\n    }\n\n    // Pastikan NSM ada di kunci utama\n    if (isset($keys[\"NSM\"])) {\n        $nsm = $keys[\"NSM\"];\n\n        // Update kolom 'ttd' di database\n        $sql = \"UPDATE profil SET `ttd` = '$ttd_value' WHERE `NSM` = '$nsm'\";\n        CustomQuery($sql);\n    }"
+		},
+		{
+			"eventId": "EVENT_BEFORESHOW_LIST",
+			"pageType": "list",
+			"code": "if (Security::getUserGroup() == \"Sispendik\") {\n        \n\n//**********  Redirect to another page  ************\nheader(\"Location: profil_view.php\");\nexit();\n\n}"
+		}
+	],
+	"sortByFields": {
+		"sortOrder": []
+	},
+	"pages": [
+		{
+			"id": "edit",
+			"type": "edit",
+			"layoutId": "leftbar",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "edit-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_message"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "edit-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_save",
+								"edit_back_list",
+								"edit_close"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"hamburger"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"supertop": {
+					"modelId": "leftbar-top-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"expand_menu_button",
+								"collapse_button"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"loginform_login",
+								"username_button"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"left": {
+					"modelId": "leftbar-menu",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c0"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c0": {
+							"model": "c0",
+							"items": [
+								"logo"
+							]
+						},
+						"c1": {
+							"model": "c1",
+							"items": [
+								"menu"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "edit-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c3"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c3": {
+							"model": "c3",
+							"items": [
+								"integrated_edit_field7",
+								"status",
+								"integrated_edit_field1",
+								"integrated_edit_field2",
+								"integrated_edit_field3",
+								"integrated_edit_field4",
+								"integrated_edit_field6",
+								"integrated_edit_field",
+								"integrated_edit_field5",
+								"integrated_edit_field9",
+								"integrated_edit_field10",
+								"integrated_edit_field8",
+								"integrated_edit_field11",
+								"izop",
+								"section",
+								"integrated_edit_field19"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				},
+				"section": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"integrated_edit_field12",
+								"integrated_edit_field13",
+								"integrated_edit_field16"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				},
+				"section1": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"integrated_edit_field14",
+								"integrated_edit_field20",
+								"integrated_edit_field21",
+								"integrated_edit_field15",
+								"integrated_edit_field22",
+								"integrated_edit_field23",
+								"integrated_edit_field17",
+								"integrated_edit_field18",
+								"integrated_edit_field24",
+								"integrated_edit_field25"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				}
+			},
+			"items": {
+				"edit_header": {
+					"type": "edit_header",
+					"title": {
+						"page": "edit",
+						"table": "profil",
+						"type": 7
+					}
+				},
+				"edit_message": {
+					"type": "edit_message"
+				},
+				"edit_save": {
+					"type": "edit_save"
+				},
+				"edit_back_list": {
+					"type": "edit_back_list"
+				},
+				"edit_close": {
+					"type": "edit_close"
+				},
+				"hamburger": {
+					"type": "hamburger",
+					"items": [
+						"edit_reset",
+						"edit_view"
+					]
+				},
+				"edit_reset": {
+					"type": "edit_reset"
+				},
+				"edit_view": {
+					"type": "edit_view"
+				},
+				"integrated_edit_field7": {
+					"field": "nama satker",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"status": {
+					"field": "Status Madrasah",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field1": {
+					"field": "Nomor Telpon",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field2": {
+					"field": "Alamat Madrasah",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field3": {
+					"field": "Nama Kepala",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field4": {
+					"field": "Nip Kepala",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field6": {
+					"field": "NPSN",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field": {
+					"field": "tingkat madrasah",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field5": {
+					"field": "NSM",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field9": {
+					"field": "kecamatan",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field10": {
+					"field": "desa",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field8": {
+					"field": "kode pos",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field11": {
+					"field": "peringkat akreditasi",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"izop": {
+					"type": "section",
+					"title": {
+						"type": 0,
+						"text": "izin operasional"
+					},
+					"location": "section",
+					"bsStyle": "default",
+					"panelType": 3
+				},
+				"integrated_edit_field12": {
+					"field": "izin operasional",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"placeholder": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 5
+					},
+					"label": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 3
+					},
+					"tooltip": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 4
+					},
+					"updateOnEdit": false
+				},
+				"integrated_edit_field13": {
+					"field": "tgl izin operasional",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"placeholder": {
+						"field": "tgl izin operasional",
+						"table": "profil",
+						"type": 5
+					},
+					"updateOnEdit": false,
+					"label": {
+						"field": "tgl izin operasional",
+						"table": "profil",
+						"type": 3
+					},
+					"tooltip": {
+						"field": "tgl izin operasional",
+						"table": "profil",
+						"type": 4
+					}
+				},
+				"integrated_edit_field14": {
+					"field": "nama yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field15": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"logo": {
+					"type": "logo"
+				},
+				"menu": {
+					"type": "menu"
+				},
+				"username_button": {
+					"type": "username_button",
+					"items": [
+						"userinfo_link",
+						"logout_link",
+						"changepassword_link"
+					]
+				},
+				"loginform_login": {
+					"type": "loginform_login"
+				},
+				"userinfo_link": {
+					"type": "userinfo_link"
+				},
+				"logout_link": {
+					"type": "logout_link"
+				},
+				"expand_menu_button": {
+					"type": "expand_menu_button"
+				},
+				"collapse_button": {
+					"type": "collapse_button"
+				},
+				"changepassword_link": {
+					"type": "changepassword_link"
+				},
+				"integrated_edit_field16": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field17": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field18": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field19": {
+					"field": "info_edit_user",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n display:none;\n}\n"
+				},
+				"integrated_edit_field20": {
+					"field": "nama ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field21": {
+					"field": "alamat yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field22": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field23": {
+					"field": "alamat ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field24": {
+					"field": "nik ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field25": {
+					"field": "telepon ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"section": {
+					"type": "section",
+					"title": {
+						"type": 0,
+						"text": "Yayasan"
+					},
+					"location": "section1",
+					"bsStyle": "default",
+					"panelType": 3
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {
+				"Indonesian": "edit profil"
+			}
+		},
+		{
+			"id": "edit1",
+			"type": "edit",
+			"layoutId": "nomenu",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "edit-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_message"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "edit-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_save",
+								"edit_close"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"hamburger"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "edit-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"edit_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c3"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c3": {
+							"model": "c3",
+							"items": [
+								"section",
+								"section1",
+								"integrated_edit_field15"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				},
+				"section": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"integrated_edit_field10",
+								"integrated_edit_field",
+								"integrated_edit_field2",
+								"integrated_edit_field7",
+								"integrated_edit_field5",
+								"integrated_edit_field6",
+								"integrated_edit_field8",
+								"integrated_edit_field11",
+								"integrated_edit_field14",
+								"integrated_edit_field16",
+								"integrated_edit_field17"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				},
+				"section1": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"integrated_edit_field1",
+								"integrated_edit_field3",
+								"integrated_edit_field4",
+								"integrated_edit_field12",
+								"text",
+								"integrated_edit_field9",
+								"integrated_edit_field13"
+							]
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": false,
+					"separateLabels": false
+				}
+			},
+			"items": {
+				"edit_header": {
+					"type": "edit_header",
+					"title": {
+						"page": "edit1",
+						"table": "profil",
+						"type": 7
+					}
+				},
+				"edit_message": {
+					"type": "edit_message"
+				},
+				"edit_save": {
+					"type": "edit_save"
+				},
+				"edit_close": {
+					"type": "edit_close"
+				},
+				"hamburger": {
+					"type": "hamburger",
+					"items": [
+						"edit_reset",
+						"edit_view"
+					]
+				},
+				"edit_reset": {
+					"type": "edit_reset"
+				},
+				"edit_view": {
+					"type": "edit_view"
+				},
+				"integrated_edit_field1": {
+					"field": "Nomor Telpon",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field3": {
+					"field": "Nama Kepala",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field4": {
+					"field": "Nip Kepala",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"updateOnEdit": false
+				},
+				"integrated_edit_field12": {
+					"field": "izin operasional",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"placeholder": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 5
+					},
+					"label": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 3
+					},
+					"tooltip": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 4
+					}
+				},
+				"text": {
+					"type": "text",
+					"label": {
+						"text": "Tanggal izin operasioan hanya bisa di ubah oleh admin",
+						"type": 0
+					},
+					"editedByRte": false,
+					"color": "#a91212"
+				},
+				"integrated_edit_field10": {
+					"field": "nama yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field": {
+					"field": "alamat yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field2": {
+					"field": "nama ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field7": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field5": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field6": {
+					"field": "nik ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field8": {
+					"field": "telepon ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field11": {
+					"field": "alamat ketua yayasan",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field9": {
+					"field": "desa",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"placeholder": {
+						"field": "desa",
+						"table": null,
+						"type": 5
+					}
+				},
+				"integrated_edit_field13": {
+					"field": "peringkat akreditasi",
+					"type": "integrated_edit_field",
+					"orientation": 0
+				},
+				"integrated_edit_field14": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"tooltip": {
+						"field": "akte_dan_sk_menkumham",
+						"table": null,
+						"type": 4
+					}
+				},
+				"integrated_edit_field16": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"tooltip": {
+						"field": "nomor_dan_tanggal_akte",
+						"table": null,
+						"type": 4
+					}
+				},
+				"integrated_edit_field17": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"tooltip": {
+						"field": "nomor_dan_tanggal_sk_menkumham",
+						"table": null,
+						"type": 4
+					}
+				},
+				"integrated_edit_field15": {
+					"field": "info_edit_user",
+					"type": "integrated_edit_field",
+					"orientation": 0,
+					"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n display:none;\n}\n"
+				},
+				"section": {
+					"type": "section",
+					"title": {
+						"type": 0,
+						"text": "YAYASAN"
+					},
+					"location": "section",
+					"bsStyle": "default",
+					"panelType": 3,
+					"headerBg": "#2565af",
+					"headerColor": "#ffffff",
+					"bodyBg": "",
+					"bodyColor": "",
+					"panelBorder": null,
+					"borderColor": ""
+				},
+				"section1": {
+					"type": "section",
+					"title": {
+						"type": 0,
+						"text": "MADRASAH/RA"
+					},
+					"location": "section1",
+					"bsStyle": "default",
+					"panelType": 3,
+					"headerBg": "#cc2525",
+					"headerColor": "#ffffff",
+					"bodyBg": "",
+					"bodyColor": "",
+					"panelBorder": null,
+					"borderColor": ""
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {
+				"Indonesian": "ubah profil"
+			}
+		},
+		{
+			"id": "export",
+			"type": "export",
+			"layoutId": "first",
+			"disabled": 1,
+			"default": 0,
+			"forms": {
+				"supertop": {
+					"modelId": "panel-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "export-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"export_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "export-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"export_field3",
+								"export_field5",
+								"export_field7",
+								"export_field10",
+								"export_field12",
+								"export_field22",
+								"export_field29"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"footer": {
+					"modelId": "export-footer",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"export_export",
+								"export_cancel"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"export_header": {
+					"type": "export_header"
+				},
+				"export_export": {
+					"type": "export_export"
+				},
+				"export_cancel": {
+					"type": "export_cancel"
+				},
+				"export_field3": {
+					"field": "NSM",
+					"type": "export_field"
+				},
+				"export_field5": {
+					"field": "Nomor Telpon",
+					"type": "export_field"
+				},
+				"export_field7": {
+					"field": "Alamat Madrasah",
+					"type": "export_field"
+				},
+				"export_field10": {
+					"field": "Nama Kepala",
+					"type": "export_field"
+				},
+				"export_field12": {
+					"field": "Nip Kepala",
+					"type": "export_field"
+				},
+				"export_field22": {
+					"field": "NPSN",
+					"type": "export_field"
+				},
+				"export_field29": {
+					"field": "nama satker",
+					"type": "export_field"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {},
+			"exportFormat": 2,
+			"exportDelimiter": ",",
+			"exportSelectDelimiter": false,
+			"exportSelectFields": false
+		},
+		{
+			"id": "export1",
+			"type": "export",
+			"layoutId": "first",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"supertop": {
+					"modelId": "panel-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "export-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"export_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "export-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"export_field10",
+								"export_field",
+								"export_field1",
+								"export_field2",
+								"export_field3",
+								"export_field4",
+								"export_field5",
+								"export_field6",
+								"export_field7",
+								"export_field8",
+								"export_field9",
+								"export_field11",
+								"export_field12",
+								"export_field16",
+								"export_field17",
+								"export_field18",
+								"export_field20",
+								"export_field28",
+								"export_field29",
+								"export_field30",
+								"export_field22",
+								"export_field23",
+								"export_field24",
+								"export_field25"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"footer": {
+					"modelId": "export-footer",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"export_export",
+								"export_cancel"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"export_header": {
+					"type": "export_header"
+				},
+				"export_export": {
+					"type": "export_export"
+				},
+				"export_cancel": {
+					"type": "export_cancel"
+				},
+				"export_field": {
+					"field": "NSM",
+					"type": "export_field"
+				},
+				"export_field1": {
+					"field": "tingkat madrasah",
+					"type": "export_field"
+				},
+				"export_field2": {
+					"field": "Status Madrasah",
+					"type": "export_field"
+				},
+				"export_field3": {
+					"field": "Nomor Telpon",
+					"type": "export_field"
+				},
+				"export_field4": {
+					"field": "Alamat Madrasah",
+					"type": "export_field"
+				},
+				"export_field5": {
+					"field": "Nama Kepala",
+					"type": "export_field"
+				},
+				"export_field6": {
+					"field": "Nip Kepala",
+					"type": "export_field"
+				},
+				"export_field7": {
+					"field": "kecamatan",
+					"type": "export_field"
+				},
+				"export_field8": {
+					"field": "desa",
+					"type": "export_field"
+				},
+				"export_field9": {
+					"field": "NPSN",
+					"type": "export_field"
+				},
+				"export_field10": {
+					"field": "nama satker",
+					"type": "export_field"
+				},
+				"export_field11": {
+					"field": "nama yayasan",
+					"type": "export_field"
+				},
+				"export_field12": {
+					"field": "alamat yayasan",
+					"type": "export_field"
+				},
+				"export_field16": {
+					"field": "nik ketua yayasan",
+					"type": "export_field"
+				},
+				"export_field17": {
+					"field": "alamat ketua yayasan",
+					"type": "export_field"
+				},
+				"export_field18": {
+					"field": "telepon ketua yayasan",
+					"type": "export_field"
+				},
+				"export_field20": {
+					"field": "peringkat akreditasi",
+					"type": "export_field"
+				},
+				"export_field22": {
+					"field": "tgl izin operasional",
+					"type": "export_field"
+				},
+				"export_field23": {
+					"field": "tanggal batas izin",
+					"type": "export_field"
+				},
+				"export_field24": {
+					"field": "sisa waktu",
+					"type": "export_field"
+				},
+				"export_field25": {
+					"field": "limit_waktu",
+					"type": "export_field"
+				},
+				"export_field28": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "export_field"
+				},
+				"export_field29": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "export_field"
+				},
+				"export_field30": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "export_field"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {},
+			"exportFormat": 2,
+			"exportDelimiter": ",",
+			"exportSelectDelimiter": false,
+			"exportSelectFields": false
+		},
+		{
+			"id": "import",
+			"type": "import",
+			"layoutId": "first",
+			"disabled": 1,
+			"default": 0,
+			"forms": {
+				"supertop": {
+					"modelId": "panel-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "import-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"import_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "import-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"import_field",
+								"import_field1",
+								"import_field2",
+								"import_field3",
+								"import_field4",
+								"import_field5",
+								"import_field6",
+								"import_field7",
+								"import_field8",
+								"import_field9",
+								"import_field10",
+								"import_field11",
+								"import_field12",
+								"import_field13",
+								"import_field14",
+								"import_field15",
+								"import_field16",
+								"import_field17"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"import_header": {
+					"type": "import_header"
+				},
+				"import_field": {
+					"field": "NSM",
+					"type": "import_field"
+				},
+				"import_field1": {
+					"field": "tingkat madrasah",
+					"type": "import_field"
+				},
+				"import_field2": {
+					"field": "Status Madrasah",
+					"type": "import_field"
+				},
+				"import_field3": {
+					"field": "Nomor Telpon",
+					"type": "import_field"
+				},
+				"import_field4": {
+					"field": "Alamat Madrasah",
+					"type": "import_field"
+				},
+				"import_field5": {
+					"field": "Nama Kepala",
+					"type": "import_field"
+				},
+				"import_field6": {
+					"field": "Nip Kepala",
+					"type": "import_field"
+				},
+				"import_field7": {
+					"field": "kecamatan",
+					"type": "import_field"
+				},
+				"import_field8": {
+					"field": "desa",
+					"type": "import_field"
+				},
+				"import_field9": {
+					"field": "NPSN",
+					"type": "import_field"
+				},
+				"import_field10": {
+					"field": "nama satker",
+					"type": "import_field"
+				},
+				"import_field11": {
+					"field": "kode pos",
+					"type": "import_field"
+				},
+				"import_field12": {
+					"field": "peringkat akreditasi",
+					"type": "import_field"
+				},
+				"import_field13": {
+					"field": "izin operasional",
+					"type": "import_field"
+				},
+				"import_field14": {
+					"field": "tgl izin operasional",
+					"type": "import_field"
+				},
+				"import_field15": {
+					"field": "tanggal batas izin",
+					"type": "import_field"
+				},
+				"import_field16": {
+					"field": "sisa waktu",
+					"type": "import_field"
+				},
+				"import_field17": {
+					"field": "limit_waktu",
+					"type": "import_field"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "list",
+			"type": "list",
+			"layoutId": "leftbar",
+			"disabled": 0,
+			"default": 1,
+			"forms": {
+				"above-grid": {
+					"modelId": "list-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"create_pdf",
+								"snippet"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"details_found",
+								"page_size",
+								"print_panel"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "list-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"pagination"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"left": {
+					"modelId": "leftbar-menu",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c0"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c0": {
+							"model": "c0",
+							"items": [
+								"logo"
+							]
+						},
+						"c1": {
+							"model": "c1",
+							"items": [
+								"menu",
+								"search_panel",
+								"filter_panel"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"supertop": {
+					"modelId": "leftbar-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"expand_menu_button",
+								"collapse_button"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"list_options",
+								"loginform_login",
+								"username_button",
+								"list_options1"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "horizontal-grid",
+					"grid": [
+						{
+							"section": "head",
+							"cells": [
+								{
+									"cell": "headcell_icons"
+								},
+								{
+									"cell": "headcell_checkbox"
+								},
+								{
+									"cell": "headcell_checkbox1"
+								},
+								{
+									"cell": "headcell_field"
+								},
+								{
+									"cell": "headcell_field10"
+								},
+								{
+									"cell": "headcell_field1"
+								},
+								{
+									"cell": "headcell_field2"
+								},
+								{
+									"cell": "headcell_field8"
+								},
+								{
+									"cell": "headcell_field9"
+								},
+								{
+									"cell": "headcell_field4"
+								},
+								{
+									"cell": "headcell_field3"
+								},
+								{
+									"cell": "headcell_field5"
+								},
+								{
+									"cell": "headcell_field6"
+								},
+								{
+									"cell": "headcell_field7"
+								}
+							]
+						},
+						{
+							"section": "body",
+							"cells": [
+								{
+									"cell": "cell_icons"
+								},
+								{
+									"cell": "cell_checkbox"
+								},
+								{
+									"cell": "cell_checkbox1"
+								},
+								{
+									"cell": "cell_field"
+								},
+								{
+									"cell": "cell_field10"
+								},
+								{
+									"cell": "cell_field1"
+								},
+								{
+									"cell": "cell_field2"
+								},
+								{
+									"cell": "cell_field8"
+								},
+								{
+									"cell": "cell_field9"
+								},
+								{
+									"cell": "cell_field4"
+								},
+								{
+									"cell": "cell_field3"
+								},
+								{
+									"cell": "cell_field5"
+								},
+								{
+									"cell": "cell_field6"
+								},
+								{
+									"cell": "cell_field7"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_dpreview",
+									"colspan": 14
+								}
+							],
+							"section": "body"
+						},
+						{
+							"section": "foot",
+							"cells": [
+								{
+									"cell": "footcell_icons"
+								},
+								{
+									"cell": "footcell_checkbox",
+									"colspan": 2
+								},
+								{
+									"cell": "footcell_field",
+									"colspan": 2
+								},
+								{
+									"cell": "footcell_field1"
+								},
+								{
+									"cell": "footcell_field2",
+									"colspan": 3
+								},
+								{
+									"cell": "footcell_field4"
+								},
+								{
+									"cell": "footcell_field3"
+								},
+								{
+									"cell": "footcell_field5"
+								},
+								{
+									"cell": "footcell_field6"
+								},
+								{
+									"cell": "footcell_field7"
+								}
+							]
+						}
+					],
+					"cells": {
+						"headcell_field": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field"
+							],
+							"field": "",
+							"columnName": "",
+							"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n  display: none;\n}\n"
+						},
+						"cell_field": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field29"
+							],
+							"field": "",
+							"columnName": "",
+							"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n  display: none;\n}\n"
+						},
+						"footcell_field": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_field1": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field4"
+							],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"cell_field1": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field3"
+							],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"footcell_field1": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"headcell_field2": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field23"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field2": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field22"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"footcell_field2": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_icons": {
+							"model": "headcell_icons",
+							"items": [],
+							"columnName": "details",
+							"field": ""
+						},
+						"cell_icons": {
+							"model": "cell_icons",
+							"items": [
+								"grid_edit",
+								"grid_view",
+								"grid_details_link"
+							],
+							"columnName": "details",
+							"field": ""
+						},
+						"footcell_icons": {
+							"model": "footcell_icons",
+							"items": [],
+							"columnName": "details",
+							"field": ""
+						},
+						"headcell_field3": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label"
+							],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"cell_field3": {
+							"model": "cell_field",
+							"items": [
+								"grid_field"
+							],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"footcell_field3": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"headcell_field4": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label1"
+							],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"cell_field4": {
+							"model": "cell_field",
+							"items": [
+								"grid_field1"
+							],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"footcell_field4": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"headcell_field5": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label2"
+							],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"cell_field5": {
+							"model": "cell_field",
+							"items": [
+								"grid_field2"
+							],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"footcell_field5": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"headcell_field6": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label3"
+							],
+							"field": "sisa waktu",
+							"columnName": "field"
+						},
+						"cell_field6": {
+							"model": "cell_field",
+							"items": [
+								"grid_field3",
+								"grid_field4"
+							],
+							"field": "sisa waktu",
+							"columnName": "field",
+							"orientation": "horizontal",
+							"nowrap": true,
+							"align": "left"
+						},
+						"footcell_field6": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "sisa waktu",
+							"columnName": "field"
+						},
+						"headcell_checkbox": {
+							"model": "headcell_checkbox",
+							"items": [
+								"grid_checkbox_head"
+							],
+							"columnName": "",
+							"field": ""
+						},
+						"cell_checkbox": {
+							"model": "cell_checkbox",
+							"items": [
+								"grid_checkbox"
+							],
+							"columnName": "",
+							"field": ""
+						},
+						"footcell_checkbox": {
+							"model": "footcell_checkbox",
+							"items": [],
+							"columnName": "",
+							"field": ""
+						},
+						"cell_dpreview": {
+							"model": "cell_dpreview",
+							"items": [
+								"details_preview"
+							],
+							"columnName": "",
+							"field": ""
+						},
+						"headcell_checkbox1": {
+							"model": "headcell_checkbox",
+							"items": [
+								"grid_field_label4"
+							],
+							"columnName": "",
+							"field": ""
+						},
+						"cell_checkbox1": {
+							"model": "cell_checkbox",
+							"items": [
+								"grid_field5"
+							],
+							"columnName": "",
+							"field": ""
+						},
+						"headcell_field8": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label5"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field8": {
+							"model": "cell_field",
+							"items": [
+								"grid_field6"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field9": {
+							"model": "cell_field",
+							"items": [
+								"grid_field7"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_field9": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label6"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_field7": {
+							"model": "headcell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field7": {
+							"model": "cell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"footcell_field7": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_field10": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label7"
+							],
+							"field": "",
+							"columnName": "",
+							"customCSS": "/* Put  your custom CSS code here */\n"
+						},
+						"cell_field10": {
+							"model": "cell_field",
+							"items": [
+								"grid_field8"
+							],
+							"field": "",
+							"columnName": "",
+							"customCSS": "/* Put  your custom CSS code here */\n"
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "list-sidebar-top",
+					"grid": [],
+					"cells": {},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"create_pdf": {
+					"type": "create_pdf",
+					"targetPages": [],
+					"splitModes": [],
+					"scopes": [],
+					"label": {
+						"type": 0,
+						"text": "download"
+					},
+					"pdfPage": "print"
+				},
+				"details_found": {
+					"type": "details_found"
+				},
+				"page_size": {
+					"type": "page_size"
+				},
+				"print_panel": {
+					"type": "print_panel",
+					"items": [
+						"print_scope",
+						"print_details",
+						"print_records",
+						"print_button"
+					]
+				},
+				"print_scope": {
+					"type": "print_scope"
+				},
+				"print_details": {
+					"type": "print_details",
+					"tables": {
+						"162369719": true
+					}
+				},
+				"print_records": {
+					"type": "print_records"
+				},
+				"print_button": {
+					"type": "print_button"
+				},
+				"pagination": {
+					"type": "pagination"
+				},
+				"simple_grid_field": {
+					"type": "grid_field_label",
+					"field": "nama satker",
+					"clickSort": true,
+					"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n  display: none;\n}\n"
+				},
+				"simple_grid_field29": {
+					"field": "nama satker",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false,
+					"customCSS": "/* Put  your custom CSS code here */\n\n:host {\n  display: none;\n}\n"
+				},
+				"simple_grid_field4": {
+					"type": "grid_field_label",
+					"field": "NSM",
+					"clickSort": true
+				},
+				"simple_grid_field3": {
+					"field": "NSM",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field23": {
+					"type": "grid_field_label",
+					"field": "NPSN",
+					"clickSort": true
+				},
+				"simple_grid_field22": {
+					"field": "NPSN",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_edit": {
+					"type": "grid_edit",
+					"popup": false
+				},
+				"grid_view": {
+					"type": "grid_view",
+					"popup": false
+				},
+				"grid_field_label": {
+					"type": "grid_field_label",
+					"field": "tgl izin operasional",
+					"clickSort": true
+				},
+				"grid_field": {
+					"field": "tgl izin operasional",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label1": {
+					"type": "grid_field_label",
+					"field": "izin operasional",
+					"clickSort": true
+				},
+				"grid_field1": {
+					"field": "izin operasional",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label2": {
+					"type": "grid_field_label",
+					"field": "tanggal batas izin",
+					"clickSort": true
+				},
+				"grid_field2": {
+					"field": "tanggal batas izin",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label3": {
+					"type": "grid_field_label",
+					"field": "sisa waktu",
+					"label": {
+						"field": "sisa waktu",
+						"table": "profil",
+						"type": 3
+					},
+					"clickSort": true
+				},
+				"grid_field3": {
+					"field": "sisa waktu",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field4": {
+					"field": "limit_waktu",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_checkbox_head": {
+					"type": "grid_checkbox_head"
+				},
+				"grid_checkbox": {
+					"type": "grid_checkbox"
+				},
+				"details_preview": {
+					"type": "details_preview",
+					"table": 162369719,
+					"items": [],
+					"popup": true,
+					"hideEmptyPreview": true,
+					"proceedLink": false,
+					"pageId": "list",
+					"caption": {
+						"page": "list",
+						"table": "daftar",
+						"type": 7
+					},
+					"color": "#c91c1c",
+					"bold": true
+				},
+				"grid_details_link": {
+					"type": "grid_details_link",
+					"table": 162369719,
+					"badge": false,
+					"hideIfNone": true,
+					"showCount": false,
+					"icon": {
+						"glyph": "share"
+					},
+					"text": {
+						"type": 0,
+						"text": ""
+					},
+					"badgeColor": "#e84510",
+					"bold": true,
+					"font-size": "15px"
+				},
+				"grid_field_label4": {
+					"type": "grid_field_label",
+					"field": "no",
+					"clickSort": true
+				},
+				"grid_field5": {
+					"field": "no",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"search_panel_field22": {
+					"field": "nama satker",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field16": {
+					"field": "limit_waktu",
+					"type": "search_panel_field"
+				},
+				"search_panel_field15": {
+					"field": "sisa waktu",
+					"type": "search_panel_field"
+				},
+				"search_panel_field14": {
+					"field": "tanggal batas izin",
+					"type": "search_panel_field"
+				},
+				"search_panel_field13": {
+					"field": "tgl izin operasional",
+					"type": "search_panel_field"
+				},
+				"search_panel_field12": {
+					"field": "izin operasional",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field11": {
+					"field": "peringkat akreditasi",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field10": {
+					"field": "kode pos",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field9": {
+					"field": "NPSN",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field7": {
+					"field": "desa",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field6": {
+					"field": "kecamatan",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field5": {
+					"field": "Nip Kepala",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field4": {
+					"field": "Nama Kepala",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field3": {
+					"field": "Alamat Madrasah",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field2": {
+					"field": "Nomor Telpon",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field1": {
+					"field": "Status Madrasah",
+					"type": "search_panel_field"
+				},
+				"search_panel_field": {
+					"field": "tingkat madrasah",
+					"type": "search_panel_field"
+				},
+				"search_panel_field8": {
+					"field": "NSM",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"advsearch_link": {
+					"type": "advsearch_link"
+				},
+				"show_search_panel": {
+					"type": "show_search_panel"
+				},
+				"hide_search_panel": {
+					"type": "hide_search_panel"
+				},
+				"userinfo_link": {
+					"type": "userinfo_link"
+				},
+				"logout_link": {
+					"type": "logout_link"
+				},
+				"adminarea_link": {
+					"type": "adminarea_link"
+				},
+				"changepassword_link": {
+					"type": "changepassword_link"
+				},
+				"filter_panel_field": {
+					"field": "Status Madrasah",
+					"type": "filter_panel_field"
+				},
+				"list_options": {
+					"type": "list_options",
+					"items": [
+						"-",
+						"-5",
+						"-4",
+						"-3",
+						"-2",
+						"-1",
+						"-6",
+						"export_selected",
+						"-7",
+						"export"
+					]
+				},
+				"-": {
+					"type": "-"
+				},
+				"logo": {
+					"type": "logo"
+				},
+				"menu": {
+					"type": "menu"
+				},
+				"search_panel": {
+					"type": "search_panel",
+					"items": [
+						"search_panel_field22",
+						"search_panel_field32",
+						"search_panel_field31",
+						"search_panel_field30",
+						"search_panel_field29",
+						"search_panel_field28",
+						"search_panel_field27",
+						"search_panel_field26",
+						"search_panel_field20",
+						"search_panel_field25",
+						"search_panel_field24",
+						"search_panel_field23",
+						"search_panel_field21",
+						"search_panel_field19",
+						"search_panel_field18",
+						"search_panel_field17",
+						"search_panel_field16",
+						"search_panel_field15",
+						"search_panel_field14",
+						"search_panel_field13",
+						"search_panel_field12",
+						"search_panel_field11",
+						"search_panel_field10",
+						"search_panel_field9",
+						"search_panel_field7",
+						"search_panel_field6",
+						"search_panel_field5",
+						"search_panel_field4",
+						"search_panel_field3",
+						"search_panel_field2",
+						"search_panel_field1",
+						"search_panel_field",
+						"search_panel_field8"
+					]
+				},
+				"list_options1": {
+					"type": "list_options",
+					"items": [
+						"advsearch_link",
+						"show_search_panel",
+						"hide_search_panel"
+					]
+				},
+				"-1": {
+					"type": "-"
+				},
+				"-2": {
+					"type": "-"
+				},
+				"-3": {
+					"type": "-"
+				},
+				"-4": {
+					"type": "-"
+				},
+				"username_button": {
+					"type": "username_button",
+					"items": [
+						"userinfo_link",
+						"logout_link",
+						"adminarea_link",
+						"changepassword_link"
+					]
+				},
+				"loginform_login": {
+					"type": "loginform_login",
+					"popup": false
+				},
+				"filter_panel": {
+					"type": "filter_panel",
+					"items": [
+						"filter_panel_field"
+					]
+				},
+				"-5": {
+					"type": "-"
+				},
+				"expand_menu_button": {
+					"type": "expand_menu_button"
+				},
+				"collapse_button": {
+					"type": "collapse_button"
+				},
+				"search_panel_field17": {
+					"field": "nama yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field18": {
+					"field": "alamat yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field19": {
+					"field": "nama ketua yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field21": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field23": {
+					"field": "nik ketua yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field24": {
+					"field": "alamat ketua yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field25": {
+					"field": "telepon ketua yayasan",
+					"type": "search_panel_field",
+					"required": false,
+					"alwaysOnPanel": false
+				},
+				"search_panel_field20": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "search_panel_field",
+					"alwaysOnPanel": false,
+					"required": false
+				},
+				"search_panel_field26": {
+					"field": "Catatan",
+					"type": "search_panel_field"
+				},
+				"search_panel_field27": {
+					"field": "no",
+					"type": "search_panel_field"
+				},
+				"snippet": {
+					"eventId": "cari_satker",
+					"label": {
+						"text": "cari-satker",
+						"type": 0
+					},
+					"type": "snippet",
+					"eventGid": 213228398
+				},
+				"grid_field6": {
+					"field": "nama yayasan",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label5": {
+					"type": "grid_field_label",
+					"field": "nama yayasan"
+				},
+				"grid_field7": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label6": {
+					"type": "grid_field_label",
+					"field": "akte_dan_sk_menkumham"
+				},
+				"grid_field8": {
+					"field": "nama Madrasah",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label7": {
+					"type": "grid_field_label",
+					"field": "nama Madrasah"
+				},
+				"search_panel_field28": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "search_panel_field"
+				},
+				"search_panel_field29": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "search_panel_field"
+				},
+				"search_panel_field30": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "search_panel_field"
+				},
+				"search_panel_field31": {
+					"field": "info_edit_user",
+					"type": "search_panel_field"
+				},
+				"search_panel_field32": {
+					"field": "nama Madrasah",
+					"type": "search_panel_field"
+				},
+				"export": {
+					"type": "export"
+				},
+				"-6": {
+					"type": "-"
+				},
+				"export_selected": {
+					"type": "export_selected"
+				},
+				"-7": {
+					"type": "-"
+				}
+			},
+			"dbProps": {},
+			"responsiveGrid": false,
+			"spreadsheetGrid": false,
+			"version": 11,
+			"reorderRows": false,
+			"reorderRowsField": "",
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "list1",
+			"type": "list",
+			"layoutId": "topbar",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "list-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						},
+						"c2": {
+							"model": "c2",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "list-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"supertop": {
+					"modelId": "topbar-menu",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"logo",
+								"menu"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"list_options",
+								"loginform_login",
+								"username_button"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"left": {
+					"modelId": "list-vbar",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "list-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"text"
+							],
+							"align": "center"
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "vertical-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "cell_top",
+									"colspan": 2
+								}
+							],
+							"section": "head"
+						},
+						{
+							"section": "body",
+							"cells": [
+								{
+									"cell": "cell_label9",
+									"colspan": 2
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label"
+								},
+								{
+									"cell": "cell_field"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"section": "body",
+							"cells": [
+								{
+									"cell": "cell_label18"
+								},
+								{
+									"cell": "cell_label19"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label1"
+								},
+								{
+									"cell": "cell_field1"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label2"
+								},
+								{
+									"cell": "cell_field2"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label3"
+								},
+								{
+									"cell": "cell_field3"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label4"
+								},
+								{
+									"cell": "cell_field4"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label5"
+								},
+								{
+									"cell": "cell_field5"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label6"
+								},
+								{
+									"cell": "cell_field6"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label7"
+								},
+								{
+									"cell": "cell_field7"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label8"
+								},
+								{
+									"cell": "cell_field8"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"section": "body",
+							"cells": [
+								{
+									"cell": "cell_field14"
+								},
+								{
+									"cell": "cell_field15"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label10"
+								},
+								{
+									"cell": "cell_field10"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label11"
+								},
+								{
+									"cell": "cell_field11"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label12"
+								},
+								{
+									"cell": "cell_field9"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label13"
+								},
+								{
+									"cell": "cell_field12"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label15"
+								},
+								{
+									"cell": "cell_field16"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label16"
+								},
+								{
+									"cell": "cell_field17"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_label14"
+								},
+								{
+									"cell": "cell_field13"
+								}
+							],
+							"section": "body"
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_dpreview",
+									"colspan": 2
+								}
+							],
+							"section": "foot"
+						}
+					],
+					"cells": {
+						"cell_top": {
+							"model": "cell_top",
+							"items": [
+								"simple_grid_field9",
+								"grid_checkbox"
+							],
+							"align": "center"
+						},
+						"cell_dpreview": {
+							"model": "cell_dpreview",
+							"items": []
+						},
+						"cell_label": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field12"
+							],
+							"field": "NSM",
+							"align": "left"
+						},
+						"cell_field": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field"
+							],
+							"field": "NSM"
+						},
+						"cell_label1": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field13"
+							],
+							"field": "tingkat madrasah",
+							"align": "left"
+						},
+						"cell_field1": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field1"
+							],
+							"field": "tingkat madrasah"
+						},
+						"cell_label2": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field14"
+							],
+							"field": "Nomor Telpon",
+							"align": "left"
+						},
+						"cell_field2": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field2"
+							],
+							"field": "Nomor Telpon"
+						},
+						"cell_label3": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field15"
+							],
+							"field": "Alamat Madrasah",
+							"align": "left"
+						},
+						"cell_field3": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field3"
+							],
+							"field": "Alamat Madrasah"
+						},
+						"cell_label4": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field16"
+							],
+							"field": "Nama Kepala",
+							"align": "left"
+						},
+						"cell_field4": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field4"
+							],
+							"field": "Nama Kepala"
+						},
+						"cell_label5": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field17"
+							],
+							"field": "Nip Kepala",
+							"align": "left"
+						},
+						"cell_field5": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field5"
+							],
+							"field": "Nip Kepala"
+						},
+						"cell_label6": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field18"
+							],
+							"field": "kecamatan",
+							"align": "left"
+						},
+						"cell_field6": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field6"
+							],
+							"field": "kecamatan"
+						},
+						"cell_label7": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field19"
+							],
+							"field": "desa",
+							"align": "left"
+						},
+						"cell_field7": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field7"
+							],
+							"field": "desa"
+						},
+						"cell_label8": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field20"
+							],
+							"field": "NPSN",
+							"align": "left"
+						},
+						"cell_field8": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field8"
+							],
+							"field": "NPSN"
+						},
+						"cell_label9": {
+							"model": "cell_label",
+							"items": [
+								"grid_edit"
+							],
+							"field": "NSM",
+							"align": "left"
+						},
+						"cell_label10": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field22"
+							],
+							"field": "kode pos",
+							"align": "left"
+						},
+						"cell_field10": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field10"
+							],
+							"field": "kode pos"
+						},
+						"cell_label11": {
+							"model": "cell_label",
+							"items": [
+								"simple_grid_field23"
+							],
+							"field": "peringkat akreditasi",
+							"align": "left"
+						},
+						"cell_field11": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field11"
+							],
+							"field": "peringkat akreditasi"
+						},
+						"cell_label12": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label"
+							],
+							"field": "izin operasional",
+							"align": "left"
+						},
+						"cell_field9": {
+							"model": "cell_field",
+							"items": [
+								"grid_field"
+							],
+							"field": "izin operasional"
+						},
+						"cell_label13": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label1"
+							],
+							"field": "tgl izin operasional",
+							"align": "left"
+						},
+						"cell_field12": {
+							"model": "cell_field",
+							"items": [
+								"grid_field1"
+							],
+							"field": "tgl izin operasional"
+						},
+						"cell_field14": {
+							"model": "cell_label",
+							"items": [],
+							"field": "NPSN",
+							"align": "left",
+							"persistent": true
+						},
+						"cell_field15": {
+							"model": "cell_field",
+							"items": [
+								"grid_field2"
+							],
+							"field": "NPSN"
+						},
+						"cell_label15": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label3"
+							],
+							"field": "tanggal batas izin",
+							"align": "left"
+						},
+						"cell_field16": {
+							"model": "cell_field",
+							"items": [
+								"grid_field3"
+							],
+							"field": "tanggal batas izin"
+						},
+						"cell_label16": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label4"
+							],
+							"field": "sisa waktu",
+							"align": "left"
+						},
+						"cell_field17": {
+							"model": "cell_field",
+							"items": [
+								"grid_field4",
+								"grid_field5"
+							],
+							"field": "sisa waktu",
+							"nowrap": true
+						},
+						"cell_label14": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label2"
+							],
+							"field": "Catatan",
+							"align": "left"
+						},
+						"cell_field13": {
+							"model": "cell_field",
+							"items": [
+								"grid_field6"
+							],
+							"field": "Catatan"
+						},
+						"cell_label18": {
+							"model": "cell_label",
+							"items": [
+								"grid_field_label5"
+							],
+							"field": "NSM",
+							"align": "left"
+						},
+						"cell_label19": {
+							"model": "cell_field",
+							"items": [
+								"grid_field7"
+							],
+							"field": "NSM"
+						}
+					},
+					"deferredItems": [
+						"grid_checkbox_head"
+					],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"logo": {
+					"type": "logo"
+				},
+				"menu": {
+					"type": "menu"
+				},
+				"grid_checkbox_head": {
+					"type": "grid_checkbox_head"
+				},
+				"simple_grid_field": {
+					"field": "NSM",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field1": {
+					"field": "tingkat madrasah",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field2": {
+					"field": "Nomor Telpon",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field3": {
+					"field": "Alamat Madrasah",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field4": {
+					"field": "Nama Kepala",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field5": {
+					"field": "Nip Kepala",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field6": {
+					"field": "kecamatan",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field7": {
+					"field": "desa",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field8": {
+					"field": "NPSN",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field9": {
+					"field": "nama satker",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false,
+					"color": "#776f6f",
+					"bold": true,
+					"font-size": "30px"
+				},
+				"simple_grid_field10": {
+					"field": "kode pos",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field11": {
+					"field": "peringkat akreditasi",
+					"type": "grid_field",
+					"clickSort": true,
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_edit": {
+					"type": "grid_edit",
+					"label": {
+						"type": 0,
+						"text": "edit"
+					},
+					"buttonStyle": "danger",
+					"icon": {
+						"glyph": ""
+					},
+					"buttonSize": "normal",
+					"page": "edit"
+				},
+				"username_button": {
+					"type": "username_button",
+					"items": [
+						"userinfo_link",
+						"logout_link",
+						"adminarea_link",
+						"changepassword_link"
+					]
+				},
+				"loginform_login": {
+					"type": "loginform_login",
+					"popup": false
+				},
+				"userinfo_link": {
+					"type": "userinfo_link"
+				},
+				"logout_link": {
+					"type": "logout_link"
+				},
+				"adminarea_link": {
+					"type": "adminarea_link"
+				},
+				"simple_grid_field12": {
+					"type": "grid_field_label",
+					"field": "NSM",
+					"clickSort": true
+				},
+				"simple_grid_field13": {
+					"type": "grid_field_label",
+					"field": "tingkat madrasah",
+					"clickSort": true
+				},
+				"simple_grid_field14": {
+					"type": "grid_field_label",
+					"field": "Nomor Telpon",
+					"clickSort": true
+				},
+				"simple_grid_field15": {
+					"type": "grid_field_label",
+					"field": "Alamat Madrasah",
+					"clickSort": true
+				},
+				"simple_grid_field16": {
+					"type": "grid_field_label",
+					"field": "Nama Kepala",
+					"clickSort": true
+				},
+				"simple_grid_field17": {
+					"type": "grid_field_label",
+					"field": "Nip Kepala",
+					"clickSort": true
+				},
+				"simple_grid_field18": {
+					"type": "grid_field_label",
+					"field": "kecamatan",
+					"clickSort": true
+				},
+				"simple_grid_field19": {
+					"type": "grid_field_label",
+					"field": "desa",
+					"clickSort": true
+				},
+				"simple_grid_field20": {
+					"type": "grid_field_label",
+					"field": "NPSN",
+					"clickSort": true
+				},
+				"simple_grid_field22": {
+					"type": "grid_field_label",
+					"field": "kode pos",
+					"clickSort": true
+				},
+				"simple_grid_field23": {
+					"type": "grid_field_label",
+					"field": "peringkat akreditasi",
+					"clickSort": true
+				},
+				"text": {
+					"type": "text",
+					"label": {
+						"text": "<h1 class=\"ql-align-center\"><img src=\"data:image/png;base64,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\"></h1><h1 class=\"ql-align-center\"><strong style=\"color: rgb(0, 102, 204);\">IZIN OPERASIONAL MADRASAH</strong></h1><h3 class=\"ql-align-center\"><strong style=\"color: rgb(0, 102, 204);\">KANTOR KEMENTERIAN AGAMA KABUPATEN PIDIE</strong></h3>",
+						"type": 0
+					},
+					"editedByRte": true
+				},
+				"changepassword_link": {
+					"type": "changepassword_link"
+				},
+				"grid_field": {
+					"field": "izin operasional",
+					"type": "grid_field"
+				},
+				"grid_field_label": {
+					"type": "grid_field_label",
+					"field": "izin operasional",
+					"label": {
+						"field": "izin operasional",
+						"table": "profil",
+						"type": 3
+					}
+				},
+				"grid_field1": {
+					"field": "tgl izin operasional",
+					"type": "grid_field"
+				},
+				"grid_field_label1": {
+					"type": "grid_field_label",
+					"field": "tgl izin operasional",
+					"label": {
+						"field": "tgl izin operasional",
+						"table": "profil",
+						"type": 3
+					}
+				},
+				"grid_field2": {
+					"field": "Status Madrasah",
+					"type": "grid_field"
+				},
+				"grid_field_label2": {
+					"type": "grid_field_label",
+					"field": "Catatan"
+				},
+				"grid_field3": {
+					"field": "tanggal batas izin",
+					"type": "grid_field"
+				},
+				"grid_field_label3": {
+					"type": "grid_field_label",
+					"field": "tanggal batas izin"
+				},
+				"grid_field4": {
+					"field": "sisa waktu",
+					"type": "grid_field"
+				},
+				"grid_field_label4": {
+					"type": "grid_field_label",
+					"field": "sisa waktu"
+				},
+				"grid_field5": {
+					"field": "limit_waktu",
+					"type": "grid_field"
+				},
+				"list_options": {
+					"type": "list_options",
+					"items": [
+						"export_selected",
+						"-",
+						"export"
+					]
+				},
+				"grid_checkbox": {
+					"type": "grid_checkbox"
+				},
+				"grid_field6": {
+					"field": "Catatan",
+					"type": "grid_field"
+				},
+				"grid_field7": {
+					"field": "nama yayasan",
+					"type": "grid_field"
+				},
+				"grid_field_label5": {
+					"type": "grid_field_label",
+					"field": "nama yayasan"
+				},
+				"export": {
+					"type": "export"
+				},
+				"export_selected": {
+					"type": "export_selected"
+				},
+				"-": {
+					"type": "-"
+				}
+			},
+			"dbProps": {},
+			"responsiveGrid": false,
+			"spreadsheetGrid": false,
+			"version": 11,
+			"pageWidth": "standard",
+			"menuWidth": "full",
+			"pageAlign": "center",
+			"addToBottom": false,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "list2",
+			"type": "list",
+			"layoutId": "leftbar",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "list-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"details_found",
+								"page_size"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "list-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"pagination"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"left": {
+					"modelId": "leftbar-menu",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c0"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c0": {
+							"model": "c0",
+							"items": [
+								"logo"
+							]
+						},
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"supertop": {
+					"modelId": "leftbar-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"expand_menu_button",
+								"collapse_button"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"simple_search",
+								"list_options"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"simple_grid_field",
+								"simple_grid_field1"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": []
+						}
+					},
+					"deferredItems": [
+						"grid_checkbox",
+						"grid_checkbox_head",
+						"grid_details_link",
+						"grid_edit",
+						"grid_view"
+					],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "list-sidebar-top",
+					"grid": [],
+					"cells": {},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"page_size": {
+					"type": "page_size"
+				},
+				"details_found": {
+					"type": "details_found"
+				},
+				"logo": {
+					"type": "logo"
+				},
+				"simple_search": {
+					"type": "simple_search"
+				},
+				"pagination": {
+					"type": "pagination"
+				},
+				"grid_checkbox": {
+					"type": "grid_checkbox"
+				},
+				"grid_checkbox_head": {
+					"type": "grid_checkbox_head"
+				},
+				"simple_grid_field": {
+					"field": "NSM",
+					"type": "simple_grid_field"
+				},
+				"grid_details_link": {
+					"type": "grid_details_link",
+					"table": 162369719,
+					"showCount": false,
+					"hideIfNone": true
+				},
+				"grid_edit": {
+					"type": "grid_edit"
+				},
+				"grid_view": {
+					"type": "grid_view"
+				},
+				"expand_menu_button": {
+					"type": "expand_menu_button"
+				},
+				"collapse_button": {
+					"type": "collapse_button"
+				},
+				"simple_grid_field1": {
+					"field": "nama Madrasah",
+					"type": "simple_grid_field"
+				},
+				"list_options": {
+					"type": "list_options",
+					"items": [
+						"export_selected",
+						"-",
+						"export"
+					]
+				},
+				"export": {
+					"type": "export"
+				},
+				"export_selected": {
+					"type": "export_selected"
+				},
+				"-": {
+					"type": "-"
+				}
+			},
+			"dbProps": {},
+			"spreadsheetGrid": false,
+			"version": 11,
+			"reorderRows": false,
+			"addToBottom": false,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "masterlist",
+			"type": "masterlist",
+			"layoutId": "masterlist",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "empty-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "empty-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "masterlist-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"back_master",
+								"masterlist_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"simple_grid_field10",
+								"simple_grid_field15",
+								"simple_grid_field16",
+								"simple_grid_field17"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"masterlist_header": {
+					"type": "masterlist_header",
+					"title": {
+						"page": "masterlist",
+						"table": "profil",
+						"type": 7
+					}
+				},
+				"back_master": {
+					"type": "back_master"
+				},
+				"simple_grid_field10": {
+					"field": "nama satker",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field15": {
+					"field": "tanggal batas izin",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field16": {
+					"field": "sisa waktu",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field17": {
+					"field": "limit_waktu",
+					"type": "simple_grid_field"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {
+				"Indonesian": ""
+			}
+		},
+		{
+			"id": "masterprint",
+			"type": "masterprint",
+			"layoutId": "masterprint",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "empty-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "empty-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "masterlist-top",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"masterprint_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"simple_grid_field",
+								"simple_grid_field1",
+								"simple_grid_field2",
+								"simple_grid_field3",
+								"simple_grid_field4",
+								"simple_grid_field5",
+								"simple_grid_field6",
+								"simple_grid_field7",
+								"simple_grid_field8",
+								"simple_grid_field9",
+								"simple_grid_field10",
+								"simple_grid_field11",
+								"simple_grid_field12",
+								"simple_grid_field13",
+								"simple_grid_field14",
+								"simple_grid_field15",
+								"simple_grid_field16",
+								"simple_grid_field17",
+								"simple_grid_field18",
+								"simple_grid_field19",
+								"simple_grid_field20",
+								"simple_grid_field22",
+								"simple_grid_field23",
+								"simple_grid_field24",
+								"simple_grid_field25",
+								"simple_grid_field21"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"masterprint_header": {
+					"type": "masterprint_header"
+				},
+				"simple_grid_field": {
+					"field": "NSM",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field1": {
+					"field": "tingkat madrasah",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field2": {
+					"field": "Status Madrasah",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field3": {
+					"field": "Nomor Telpon",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field4": {
+					"field": "Alamat Madrasah",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field5": {
+					"field": "Nama Kepala",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field6": {
+					"field": "Nip Kepala",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field7": {
+					"field": "kecamatan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field8": {
+					"field": "desa",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field9": {
+					"field": "NPSN",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field10": {
+					"field": "nama satker",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field11": {
+					"field": "kode pos",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field12": {
+					"field": "peringkat akreditasi",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field13": {
+					"field": "izin operasional",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field14": {
+					"field": "tgl izin operasional",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field15": {
+					"field": "tanggal batas izin",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field16": {
+					"field": "sisa waktu",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field17": {
+					"field": "limit_waktu",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field18": {
+					"field": "nama yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field19": {
+					"field": "alamat yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field20": {
+					"field": "nama ketua yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field21": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field22": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field23": {
+					"field": "nik ketua yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field24": {
+					"field": "alamat ketua yayasan",
+					"type": "simple_grid_field"
+				},
+				"simple_grid_field25": {
+					"field": "telepon ketua yayasan",
+					"type": "simple_grid_field"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "print",
+			"type": "print",
+			"layoutId": "basic",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "print-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"print_pages"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "print-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "print-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c2": {
+							"model": "c2",
+							"items": [
+								"print_header",
+								"print_subheader"
+							]
+						},
+						"c1": {
+							"model": "c1",
+							"items": [
+								"print_pdf"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "horizontal-grid",
+					"grid": [
+						{
+							"section": "head",
+							"cells": [
+								{
+									"cell": "headcell_icons"
+								},
+								{
+									"cell": "headcell_checkbox1"
+								},
+								{
+									"cell": "headcell_field"
+								},
+								{
+									"cell": "headcell_field1"
+								},
+								{
+									"cell": "headcell_field2"
+								},
+								{
+									"cell": "headcell_field8"
+								},
+								{
+									"cell": "headcell_field4"
+								},
+								{
+									"cell": "headcell_field3"
+								},
+								{
+									"cell": "headcell_field5"
+								},
+								{
+									"cell": "headcell_field6"
+								},
+								{
+									"cell": "headcell_field7"
+								},
+								{
+									"cell": "headcell_field9"
+								}
+							]
+						},
+						{
+							"section": "body",
+							"cells": [
+								{
+									"cell": "cell_icons"
+								},
+								{
+									"cell": "cell_checkbox1"
+								},
+								{
+									"cell": "cell_field"
+								},
+								{
+									"cell": "cell_field1"
+								},
+								{
+									"cell": "cell_field2"
+								},
+								{
+									"cell": "cell_field8"
+								},
+								{
+									"cell": "cell_field4"
+								},
+								{
+									"cell": "cell_field3"
+								},
+								{
+									"cell": "cell_field5"
+								},
+								{
+									"cell": "cell_field6"
+								},
+								{
+									"cell": "cell_field7"
+								},
+								{
+									"cell": "cell_field9"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"cell": "cell_dpreview",
+									"colspan": 12
+								}
+							],
+							"section": "body"
+						},
+						{
+							"section": "foot",
+							"cells": [
+								{
+									"cell": "footcell_icons"
+								},
+								{
+									"cell": "footcell_checkbox"
+								},
+								{
+									"cell": "footcell_field"
+								},
+								{
+									"cell": "footcell_field1"
+								},
+								{
+									"cell": "footcell_field2",
+									"colspan": 2
+								},
+								{
+									"cell": "footcell_field4"
+								},
+								{
+									"cell": "footcell_field3"
+								},
+								{
+									"cell": "footcell_field5"
+								},
+								{
+									"cell": "footcell_field6"
+								},
+								{
+									"cell": "footcell_field7"
+								},
+								{
+									"cell": "footcell_field8"
+								}
+							]
+						}
+					],
+					"cells": {
+						"headcell_field": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field"
+							],
+							"field": "nama satker",
+							"columnName": "field"
+						},
+						"cell_field": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field29"
+							],
+							"field": "nama satker",
+							"columnName": "field"
+						},
+						"footcell_field": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "nama satker",
+							"columnName": "field"
+						},
+						"headcell_field1": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field4"
+							],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"cell_field1": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field3"
+							],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"footcell_field1": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "NSM",
+							"columnName": "field"
+						},
+						"headcell_field2": {
+							"model": "headcell_field",
+							"items": [
+								"simple_grid_field23"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field2": {
+							"model": "cell_field",
+							"items": [
+								"simple_grid_field22"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"footcell_field2": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_icons": {
+							"model": "headcell_icons",
+							"items": [],
+							"columnName": "",
+							"field": ""
+						},
+						"cell_icons": {
+							"model": "cell_icons",
+							"items": [],
+							"columnName": "",
+							"field": ""
+						},
+						"footcell_icons": {
+							"model": "footcell_icons",
+							"items": [],
+							"columnName": "",
+							"field": ""
+						},
+						"headcell_field3": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label"
+							],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"cell_field3": {
+							"model": "cell_field",
+							"items": [
+								"grid_field"
+							],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"footcell_field3": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "tgl izin operasional",
+							"columnName": "field"
+						},
+						"headcell_field4": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label1"
+							],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"cell_field4": {
+							"model": "cell_field",
+							"items": [
+								"grid_field1"
+							],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"footcell_field4": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "izin operasional",
+							"columnName": "field"
+						},
+						"headcell_field5": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label2"
+							],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"cell_field5": {
+							"model": "cell_field",
+							"items": [
+								"grid_field2"
+							],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"footcell_field5": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "tanggal batas izin",
+							"columnName": "field"
+						},
+						"headcell_field6": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label3"
+							],
+							"field": "sisa waktu",
+							"columnName": "field"
+						},
+						"cell_field6": {
+							"model": "cell_field",
+							"items": [
+								"grid_field3",
+								"grid_field4"
+							],
+							"field": "sisa waktu",
+							"columnName": "field",
+							"orientation": "horizontal",
+							"nowrap": true,
+							"align": "left"
+						},
+						"footcell_field6": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "sisa waktu",
+							"columnName": "field"
+						},
+						"footcell_checkbox": {
+							"model": "footcell_checkbox",
+							"items": [],
+							"columnName": "field",
+							"field": "no"
+						},
+						"cell_dpreview": {
+							"model": "cell_dpreview",
+							"items": [
+								"details_preview"
+							],
+							"columnName": "field",
+							"field": "nomor_dan_tanggal_akte"
+						},
+						"headcell_checkbox1": {
+							"model": "headcell_checkbox",
+							"items": [
+								"grid_field_label4"
+							],
+							"columnName": "field",
+							"field": "no"
+						},
+						"cell_checkbox1": {
+							"model": "cell_checkbox",
+							"items": [
+								"grid_field5"
+							],
+							"columnName": "field",
+							"field": "no"
+						},
+						"headcell_field8": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label5"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"cell_field8": {
+							"model": "cell_field",
+							"items": [
+								"grid_field6"
+							],
+							"field": "",
+							"columnName": ""
+						},
+						"headcell_field7": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label6"
+							],
+							"field": "nomor_dan_tanggal_sk_menkumham",
+							"columnName": "field"
+						},
+						"cell_field7": {
+							"model": "cell_field",
+							"items": [
+								"grid_field7"
+							],
+							"field": "nomor_dan_tanggal_sk_menkumham",
+							"columnName": "field"
+						},
+						"footcell_field7": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "nomor_dan_tanggal_sk_menkumham",
+							"columnName": "field"
+						},
+						"headcell_field9": {
+							"model": "headcell_field",
+							"items": [
+								"grid_field_label7"
+							],
+							"field": "nomor_dan_tanggal_akte",
+							"columnName": "field"
+						},
+						"cell_field9": {
+							"model": "cell_field",
+							"items": [
+								"grid_field8"
+							],
+							"field": "nomor_dan_tanggal_akte",
+							"columnName": "field"
+						},
+						"footcell_field8": {
+							"model": "footcell_field",
+							"items": [],
+							"field": "nomor_dan_tanggal_akte",
+							"columnName": "field"
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				}
+			},
+			"items": {
+				"print_header": {
+					"type": "print_header",
+					"title": {
+						"page": "print",
+						"table": "profil",
+						"type": 7
+					}
+				},
+				"print_subheader": {
+					"type": "print_subheader"
+				},
+				"print_pages": {
+					"type": "print_pages"
+				},
+				"grid_field6": {
+					"field": "nama yayasan",
+					"type": "grid_field"
+				},
+				"grid_field_label5": {
+					"type": "grid_field_label",
+					"field": "nama yayasan"
+				},
+				"grid_field5": {
+					"field": "no",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label4": {
+					"type": "grid_field_label",
+					"field": "no",
+					"clickSort": true
+				},
+				"print_pdf": {
+					"type": "print_pdf",
+					"targetPages": [],
+					"splitModes": [],
+					"scopes": [],
+					"pageSize": "A4"
+				},
+				"details_preview": {
+					"type": "details_preview",
+					"table": 162369719,
+					"items": [],
+					"popup": false,
+					"hideEmptyPreview": true,
+					"proceedLink": true,
+					"pageId": "list"
+				},
+				"grid_field4": {
+					"field": "limit_waktu",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field3": {
+					"field": "sisa waktu",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label3": {
+					"type": "grid_field_label",
+					"field": "sisa waktu",
+					"label": {
+						"field": "sisa waktu",
+						"table": "profil",
+						"type": 3
+					},
+					"clickSort": true
+				},
+				"grid_field2": {
+					"field": "tanggal batas izin",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label2": {
+					"type": "grid_field_label",
+					"field": "tanggal batas izin",
+					"clickSort": true
+				},
+				"grid_field1": {
+					"field": "izin operasional",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label1": {
+					"type": "grid_field_label",
+					"field": "izin operasional",
+					"clickSort": true
+				},
+				"grid_field": {
+					"field": "tgl izin operasional",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field_label": {
+					"type": "grid_field_label",
+					"field": "tgl izin operasional",
+					"clickSort": true
+				},
+				"simple_grid_field22": {
+					"field": "NPSN",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field23": {
+					"type": "grid_field_label",
+					"field": "NPSN",
+					"clickSort": true
+				},
+				"simple_grid_field4": {
+					"type": "grid_field_label",
+					"field": "NSM",
+					"clickSort": true
+				},
+				"simple_grid_field3": {
+					"field": "NSM",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"simple_grid_field": {
+					"type": "grid_field_label",
+					"field": "nama satker",
+					"clickSort": true
+				},
+				"simple_grid_field29": {
+					"field": "nama satker",
+					"type": "grid_field",
+					"inlineAdd": false,
+					"inlineEdit": false
+				},
+				"grid_field7": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "grid_field"
+				},
+				"grid_field_label6": {
+					"type": "grid_field_label",
+					"field": "nomor_dan_tanggal_sk_menkumham"
+				},
+				"grid_field8": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "grid_field"
+				},
+				"grid_field_label7": {
+					"type": "grid_field_label",
+					"field": "nomor_dan_tanggal_akte"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {
+				"Indonesian": "Daftar"
+			}
+		},
+		{
+			"id": "search",
+			"type": "search",
+			"layoutId": "nomenu",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "search-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1",
+									"colspan": 2
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": []
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "search-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"search_search",
+								"search_reset",
+								"search_back_list",
+								"search_cancel"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "search-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"search_header"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-search",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c3"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c3": {
+							"model": "c3",
+							"items": [
+								"integrated_search_field29",
+								"integrated_search_field3",
+								"integrated_search_field5",
+								"integrated_search_field7",
+								"integrated_search_field10",
+								"integrated_search_field12",
+								"integrated_search_field22",
+								"integrated_search_field",
+								"integrated_search_field1",
+								"integrated_search_field2",
+								"integrated_search_field4",
+								"integrated_search_field6",
+								"integrated_search_field8",
+								"integrated_search_field9",
+								"integrated_search_field11",
+								"integrated_search_field13",
+								"integrated_search_field14",
+								"integrated_search_field15",
+								"integrated_search_field16",
+								"integrated_search_field17",
+								"integrated_search_field18",
+								"integrated_search_field19",
+								"integrated_search_field20",
+								"integrated_search_field21",
+								"integrated_search_field24",
+								"integrated_search_field25",
+								"integrated_search_field26",
+								"integrated_search_field27",
+								"integrated_search_field23",
+								"integrated_search_field28",
+								"integrated_search_field30",
+								"integrated_search_field31",
+								"integrated_search_field32"
+							]
+						}
+					},
+					"deferredItems": [],
+					"separateLabels": false
+				}
+			},
+			"items": {
+				"search_header": {
+					"type": "search_header"
+				},
+				"search_reset": {
+					"type": "search_reset"
+				},
+				"search_back_list": {
+					"type": "search_back_list"
+				},
+				"search_search": {
+					"type": "search_search"
+				},
+				"search_cancel": {
+					"type": "search_cancel"
+				},
+				"integrated_search_field3": {
+					"field": "NSM",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field5": {
+					"field": "Nomor Telpon",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field7": {
+					"field": "Alamat Madrasah",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field10": {
+					"field": "Nama Kepala",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field12": {
+					"field": "Nip Kepala",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field22": {
+					"field": "NPSN",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field29": {
+					"field": "nama satker",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field": {
+					"field": "tingkat madrasah",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field1": {
+					"field": "kecamatan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field2": {
+					"field": "desa",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field4": {
+					"field": "kode pos",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field6": {
+					"field": "peringkat akreditasi",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field8": {
+					"field": "Status Madrasah",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field9": {
+					"field": "izin operasional",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field11": {
+					"field": "tgl izin operasional",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field13": {
+					"field": "tanggal batas izin",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field14": {
+					"field": "sisa waktu",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field15": {
+					"field": "limit_waktu",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field16": {
+					"field": "Catatan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field17": {
+					"field": "no",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field18": {
+					"field": "info_edit_user",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field19": {
+					"field": "nama yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field20": {
+					"field": "alamat yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field21": {
+					"field": "nama ketua yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field23": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field24": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field25": {
+					"field": "nik ketua yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field26": {
+					"field": "alamat ketua yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field27": {
+					"field": "telepon ketua yayasan",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field28": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field30": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field31": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				},
+				"integrated_search_field32": {
+					"field": "nama Madrasah",
+					"type": "integrated_search_field",
+					"orientation": 0,
+					"required": false
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		},
+		{
+			"id": "view",
+			"type": "view",
+			"layoutId": "topbar",
+			"disabled": 0,
+			"default": 0,
+			"forms": {
+				"above-grid": {
+					"modelId": "view-above-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1",
+									"colspan": 2
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"view_edit"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"below-grid": {
+					"modelId": "view-below-grid",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"view_close"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"hamburger"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"supertop": {
+					"modelId": "topbar-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								},
+								{
+									"cell": "c2"
+								},
+								{
+									"cell": "c3"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"logo"
+							]
+						},
+						"c2": {
+							"model": "c2",
+							"items": [
+								"menu"
+							]
+						},
+						"c3": {
+							"model": "c3",
+							"items": [
+								"loginform_login",
+								"username_button"
+							]
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"top": {
+					"modelId": "view-header",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c1"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c1": {
+							"model": "c1",
+							"items": [
+								"text",
+								"integrated_edit_field9",
+								"integrated_edit_field",
+								"edit_field_label4",
+								"edit_field5"
+							],
+							"customCSS": "\n\n:host {\n   background: #f5f5f7;\n background-size: cover;\n                  background-position: 30% 20%;\n                  height: 360px;\n                  width: 100%;\n                  text-align: center;\n                   border-top-left-radius:20px;\n border-top-right-radius:20px;\n border-bottom-left-radius:20px;\n border-bottom-right-radius:20px;\n box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\n}\n\n",
+							"align": "center",
+							"orientation": "vertical"
+						}
+					},
+					"deferredItems": [],
+					"recsPerRow": 1
+				},
+				"grid": {
+					"modelId": "simple-edit",
+					"grid": [
+						{
+							"cells": [
+								{
+									"cell": "c"
+								},
+								{
+									"cell": "c3"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c5"
+								},
+								{
+									"cell": "c6"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c7"
+								},
+								{
+									"cell": "c8"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c9"
+								},
+								{
+									"cell": "c10"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c11"
+								},
+								{
+									"cell": "c12"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c13"
+								},
+								{
+									"cell": "c14"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c15"
+								},
+								{
+									"cell": "c16"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c17"
+								},
+								{
+									"cell": "c18"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c21"
+								},
+								{
+									"cell": "c22"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c23"
+								},
+								{
+									"cell": "c24"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c19"
+								},
+								{
+									"cell": "c20"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c25"
+								},
+								{
+									"cell": "c26"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c27"
+								},
+								{
+									"cell": "c28"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c29"
+								},
+								{
+									"cell": "c30"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c31"
+								},
+								{
+									"cell": "c32"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c33"
+								},
+								{
+									"cell": "c34"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c35"
+								},
+								{
+									"cell": "c36"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c37"
+								},
+								{
+									"cell": "c38"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c41"
+								},
+								{
+									"cell": "c42"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c43"
+								},
+								{
+									"cell": "c44"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c45"
+								},
+								{
+									"cell": "c46"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c47"
+								},
+								{
+									"cell": "c48"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c39"
+								},
+								{
+									"cell": "c40"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c49"
+								},
+								{
+									"cell": "c50"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c51"
+								},
+								{
+									"cell": "c52"
+								}
+							],
+							"section": ""
+						},
+						{
+							"cells": [
+								{
+									"cell": "c53"
+								},
+								{
+									"cell": "c54"
+								}
+							],
+							"section": ""
+						}
+					],
+					"cells": {
+						"c": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field13"
+							],
+							"field": "tingkat madrasah",
+							"align": "left",
+							"persistent": true
+						},
+						"c3": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field1"
+							],
+							"field": "tingkat madrasah"
+						},
+						"c5": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field14"
+							],
+							"field": "Nomor Telpon",
+							"align": "left",
+							"persistent": true
+						},
+						"c6": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field2"
+							],
+							"field": "Nomor Telpon"
+						},
+						"c7": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field15"
+							],
+							"field": "Alamat Madrasah",
+							"align": "left",
+							"persistent": true
+						},
+						"c8": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field3"
+							],
+							"field": "Alamat Madrasah"
+						},
+						"c9": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field16"
+							],
+							"field": "Nama Kepala",
+							"align": "left",
+							"persistent": true
+						},
+						"c10": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field4"
+							],
+							"field": "Nama Kepala"
+						},
+						"c11": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field17"
+							],
+							"field": "Nip Kepala",
+							"align": "left",
+							"persistent": true
+						},
+						"c12": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field5"
+							],
+							"field": "Nip Kepala"
+						},
+						"c13": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field18"
+							],
+							"field": "kecamatan",
+							"align": "left",
+							"persistent": true
+						},
+						"c14": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field6"
+							],
+							"field": "kecamatan"
+						},
+						"c15": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field19"
+							],
+							"field": "desa",
+							"align": "left",
+							"persistent": true
+						},
+						"c16": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field7"
+							],
+							"field": "desa"
+						},
+						"c17": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field20"
+							],
+							"field": "NPSN",
+							"align": "left",
+							"persistent": true
+						},
+						"c18": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field8"
+							],
+							"field": "NPSN"
+						},
+						"c21": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field22"
+							],
+							"field": "kode pos",
+							"align": "left",
+							"persistent": true
+						},
+						"c22": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field10"
+							],
+							"field": "kode pos"
+						},
+						"c23": {
+							"model": "c4",
+							"items": [
+								"integrated_edit_field23"
+							],
+							"field": "peringkat akreditasi",
+							"align": "left",
+							"persistent": true
+						},
+						"c24": {
+							"model": "c2",
+							"items": [
+								"integrated_edit_field11"
+							],
+							"field": "peringkat akreditasi"
+						},
+						"c19": {
+							"model": "c4",
+							"items": [
+								"edit_field_label1"
+							],
+							"field": "izin operasional",
+							"align": "left"
+						},
+						"c20": {
+							"model": "c2",
+							"items": [
+								"edit_field1"
+							],
+							"field": "izin operasional"
+						},
+						"c25": {
+							"model": "c4",
+							"items": [
+								"edit_field_label"
+							],
+							"field": "tgl izin operasional",
+							"align": "left"
+						},
+						"c26": {
+							"model": "c2",
+							"items": [
+								"edit_field2"
+							],
+							"field": "tgl izin operasional"
+						},
+						"c27": {
+							"model": "c4",
+							"items": [
+								"edit_field_label2"
+							],
+							"field": "tanggal batas izin",
+							"align": "left"
+						},
+						"c28": {
+							"model": "c2",
+							"items": [
+								"edit_field3"
+							],
+							"field": "tanggal batas izin"
+						},
+						"c29": {
+							"model": "c4",
+							"items": [
+								"edit_field_label3"
+							],
+							"field": "sisa waktu",
+							"align": "left"
+						},
+						"c30": {
+							"model": "c2",
+							"items": [
+								"edit_field4"
+							],
+							"field": "sisa waktu"
+						},
+						"c31": {
+							"model": "c4",
+							"items": [],
+							"field": "limit_waktu",
+							"align": "left"
+						},
+						"c32": {
+							"model": "c2",
+							"items": [],
+							"field": "limit_waktu"
+						},
+						"c33": {
+							"model": "c4",
+							"items": [
+								"edit_field_label5"
+							],
+							"field": "nama yayasan",
+							"align": "left"
+						},
+						"c34": {
+							"model": "c2",
+							"items": [
+								"edit_field6"
+							],
+							"field": "nama yayasan"
+						},
+						"c35": {
+							"model": "c4",
+							"items": [
+								"edit_field_label6"
+							],
+							"field": "alamat yayasan",
+							"align": "left"
+						},
+						"c36": {
+							"model": "c2",
+							"items": [
+								"edit_field7"
+							],
+							"field": "alamat yayasan"
+						},
+						"c37": {
+							"model": "c4",
+							"items": [
+								"edit_field_label7"
+							],
+							"field": "nama ketua yayasan",
+							"align": "left"
+						},
+						"c38": {
+							"model": "c2",
+							"items": [
+								"edit_field8"
+							],
+							"field": "nama ketua yayasan"
+						},
+						"c39": {
+							"model": "c4",
+							"items": [
+								"edit_field_label8"
+							],
+							"field": "tempat_tanggal lahir ketua",
+							"align": "left"
+						},
+						"c40": {
+							"model": "c2",
+							"items": [
+								"edit_field9"
+							],
+							"field": "tempat_tanggal lahir ketua"
+						},
+						"c41": {
+							"model": "c4",
+							"items": [
+								"edit_field_label9"
+							],
+							"field": "pekerjaan ketua yayasan",
+							"align": "left"
+						},
+						"c42": {
+							"model": "c2",
+							"items": [
+								"edit_field10"
+							],
+							"field": "pekerjaan ketua yayasan"
+						},
+						"c43": {
+							"model": "c4",
+							"items": [
+								"edit_field_label10"
+							],
+							"field": "nik ketua yayasan",
+							"align": "left"
+						},
+						"c44": {
+							"model": "c2",
+							"items": [
+								"edit_field11"
+							],
+							"field": "nik ketua yayasan"
+						},
+						"c45": {
+							"model": "c4",
+							"items": [
+								"edit_field_label11"
+							],
+							"field": "alamat ketua yayasan",
+							"align": "left"
+						},
+						"c46": {
+							"model": "c2",
+							"items": [
+								"edit_field12"
+							],
+							"field": "alamat ketua yayasan"
+						},
+						"c47": {
+							"model": "c4",
+							"items": [
+								"edit_field_label12"
+							],
+							"field": "telepon ketua yayasan",
+							"align": "left"
+						},
+						"c48": {
+							"model": "c2",
+							"items": [
+								"edit_field13"
+							],
+							"field": "telepon ketua yayasan"
+						},
+						"c49": {
+							"model": "c4",
+							"items": [
+								"edit_field_label13"
+							],
+							"field": "akte_dan_sk_menkumham",
+							"align": "left"
+						},
+						"c50": {
+							"model": "c2",
+							"items": [
+								"edit_field14"
+							],
+							"field": "akte_dan_sk_menkumham"
+						},
+						"c51": {
+							"model": "c4",
+							"items": [
+								"edit_field_label14"
+							],
+							"field": "nomor_dan_tanggal_sk_menkumham",
+							"align": "left"
+						},
+						"c52": {
+							"model": "c2",
+							"items": [
+								"edit_field15"
+							],
+							"field": "nomor_dan_tanggal_sk_menkumham"
+						},
+						"c53": {
+							"model": "c4",
+							"items": [
+								"edit_field_label15"
+							],
+							"field": "nomor_dan_tanggal_akte",
+							"align": "left"
+						},
+						"c54": {
+							"model": "c2",
+							"items": [
+								"edit_field16"
+							],
+							"field": "nomor_dan_tanggal_akte"
+						}
+					},
+					"deferredItems": [],
+					"columnCount": 1,
+					"inlineLabels": true,
+					"separateLabels": true
+				}
+			},
+			"items": {
+				"view_close": {
+					"type": "view_close"
+				},
+				"hamburger": {
+					"type": "hamburger",
+					"items": [
+						"view_pdf"
+					]
+				},
+				"view_edit": {
+					"type": "view_edit",
+					"page": "",
+					"buttonStyle": "danger"
+				},
+				"integrated_edit_field": {
+					"field": "NSM",
+					"type": "edit_field",
+					"font-size": "30px"
+				},
+				"integrated_edit_field1": {
+					"field": "tingkat madrasah",
+					"type": "edit_field"
+				},
+				"integrated_edit_field2": {
+					"field": "Nomor Telpon",
+					"type": "edit_field"
+				},
+				"integrated_edit_field3": {
+					"field": "Alamat Madrasah",
+					"type": "edit_field"
+				},
+				"integrated_edit_field4": {
+					"field": "Nama Kepala",
+					"type": "edit_field"
+				},
+				"integrated_edit_field5": {
+					"field": "Nip Kepala",
+					"type": "edit_field"
+				},
+				"integrated_edit_field6": {
+					"field": "kecamatan",
+					"type": "edit_field"
+				},
+				"integrated_edit_field7": {
+					"field": "desa",
+					"type": "edit_field"
+				},
+				"integrated_edit_field8": {
+					"field": "NPSN",
+					"type": "edit_field"
+				},
+				"integrated_edit_field9": {
+					"field": "nama satker",
+					"type": "edit_field",
+					"bold": true,
+					"font-size": "40px"
+				},
+				"integrated_edit_field10": {
+					"field": "kode pos",
+					"type": "edit_field"
+				},
+				"integrated_edit_field11": {
+					"field": "peringkat akreditasi",
+					"type": "edit_field"
+				},
+				"logo": {
+					"type": "logo"
+				},
+				"menu": {
+					"type": "menu"
+				},
+				"username_button": {
+					"type": "username_button",
+					"items": [
+						"userinfo_link",
+						"logout_link",
+						"changepassword_link"
+					]
+				},
+				"loginform_login": {
+					"type": "loginform_login"
+				},
+				"userinfo_link": {
+					"type": "userinfo_link"
+				},
+				"logout_link": {
+					"type": "logout_link"
+				},
+				"integrated_edit_field13": {
+					"type": "edit_field_label",
+					"field": "tingkat madrasah"
+				},
+				"integrated_edit_field14": {
+					"type": "edit_field_label",
+					"field": "Nomor Telpon"
+				},
+				"integrated_edit_field15": {
+					"type": "edit_field_label",
+					"field": "Alamat Madrasah"
+				},
+				"integrated_edit_field16": {
+					"type": "edit_field_label",
+					"field": "Nama Kepala"
+				},
+				"integrated_edit_field17": {
+					"type": "edit_field_label",
+					"field": "Nip Kepala"
+				},
+				"integrated_edit_field18": {
+					"type": "edit_field_label",
+					"field": "kecamatan"
+				},
+				"integrated_edit_field19": {
+					"type": "edit_field_label",
+					"field": "desa"
+				},
+				"integrated_edit_field20": {
+					"type": "edit_field_label",
+					"field": "NPSN"
+				},
+				"integrated_edit_field22": {
+					"type": "edit_field_label",
+					"field": "kode pos"
+				},
+				"integrated_edit_field23": {
+					"type": "edit_field_label",
+					"field": "peringkat akreditasi"
+				},
+				"text": {
+					"type": "text",
+					"label": {
+						"text": "IZIN OPERASIONAL",
+						"type": 0
+					},
+					"editedByRte": false,
+					"bold": true,
+					"font-size": "30px"
+				},
+				"changepassword_link": {
+					"type": "changepassword_link"
+				},
+				"edit_field_label": {
+					"type": "edit_field_label",
+					"field": "tgl izin operasional"
+				},
+				"edit_field1": {
+					"field": "izin operasional",
+					"type": "edit_field"
+				},
+				"edit_field_label1": {
+					"type": "edit_field_label",
+					"field": "izin operasional"
+				},
+				"edit_field2": {
+					"field": "tgl izin operasional",
+					"type": "edit_field"
+				},
+				"edit_field3": {
+					"field": "tanggal batas izin",
+					"type": "edit_field"
+				},
+				"edit_field_label2": {
+					"type": "edit_field_label",
+					"field": "tanggal batas izin"
+				},
+				"edit_field4": {
+					"field": "sisa waktu",
+					"type": "edit_field"
+				},
+				"edit_field_label3": {
+					"type": "edit_field_label",
+					"field": "sisa waktu"
+				},
+				"edit_field5": {
+					"field": "limit_waktu",
+					"type": "edit_field",
+					"bold": true,
+					"font-size": "20px"
+				},
+				"edit_field_label4": {
+					"type": "edit_field_label",
+					"field": "limit_waktu",
+					"bold": true,
+					"font-size": "20px"
+				},
+				"view_pdf": {
+					"type": "view_pdf",
+					"targetPages": [],
+					"splitModes": [],
+					"scopes": []
+				},
+				"edit_field6": {
+					"field": "nama yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label5": {
+					"type": "edit_field_label",
+					"field": "nama yayasan"
+				},
+				"edit_field7": {
+					"field": "alamat yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label6": {
+					"type": "edit_field_label",
+					"field": "alamat yayasan"
+				},
+				"edit_field8": {
+					"field": "nama ketua yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label7": {
+					"type": "edit_field_label",
+					"field": "nama ketua yayasan"
+				},
+				"edit_field9": {
+					"field": "tempat_tanggal lahir ketua",
+					"type": "edit_field"
+				},
+				"edit_field_label8": {
+					"type": "edit_field_label",
+					"field": "tempat_tanggal lahir ketua"
+				},
+				"edit_field10": {
+					"field": "pekerjaan ketua yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label9": {
+					"type": "edit_field_label",
+					"field": "pekerjaan ketua yayasan"
+				},
+				"edit_field11": {
+					"field": "nik ketua yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label10": {
+					"type": "edit_field_label",
+					"field": "nik ketua yayasan"
+				},
+				"edit_field12": {
+					"field": "alamat ketua yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label11": {
+					"type": "edit_field_label",
+					"field": "alamat ketua yayasan"
+				},
+				"edit_field13": {
+					"field": "telepon ketua yayasan",
+					"type": "edit_field"
+				},
+				"edit_field_label12": {
+					"type": "edit_field_label",
+					"field": "telepon ketua yayasan"
+				},
+				"edit_field14": {
+					"field": "akte_dan_sk_menkumham",
+					"type": "edit_field"
+				},
+				"edit_field_label13": {
+					"type": "edit_field_label",
+					"field": "akte_dan_sk_menkumham"
+				},
+				"edit_field15": {
+					"field": "nomor_dan_tanggal_sk_menkumham",
+					"type": "edit_field"
+				},
+				"edit_field_label14": {
+					"type": "edit_field_label",
+					"field": "nomor_dan_tanggal_sk_menkumham"
+				},
+				"edit_field16": {
+					"field": "nomor_dan_tanggal_akte",
+					"type": "edit_field"
+				},
+				"edit_field_label15": {
+					"type": "edit_field_label",
+					"field": "nomor_dan_tanggal_akte"
+				}
+			},
+			"dbProps": {},
+			"version": 11,
+			"pageWidth": "standard",
+			"pageAlign": "center",
+			"imageItem": {
+				"type": "page_image"
+			},
+			"imageBgColor": "#f2f2f2",
+			"controlsBgColor": "white",
+			"imagePosition": "right",
+			"listTotals": 1,
+			"title": {}
+		}
+	],
+	"geoCoding": {
+		"enabled": false,
+		"latField": "",
+		"lonField": "",
+		"addressFields": []
+	},
+	"caption": {
+		"Indonesian": "Profil"
+	}
+}

@@ -1,0 +1,4 @@
+{
+	"name": "menu",
+	"serverCode": "// Put your code here.\necho \"<div class='izin-header'>\n    <img src='https://appmadrasah.kemenag.go.id/__statics/img/logo.png' alt='Logo Kemenag'>\n    <h1>TATA PERSURATAN</h1>\n    <h2>KANTOR KEMENTERIAN AGAMA KAB. PIDIE</h2>\n  </div>\n\";"
+}

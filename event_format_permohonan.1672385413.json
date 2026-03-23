@@ -1,0 +1,5 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "format_permohonan",
+	"beforeJsCode": "window.popup = Runner.displayPopup({\n                                   url: Runner.pages.getUrl(\"drive\"),\n                                   width: 900,\n                                   height: 900,\n                                   header: 'FOrmat permohanan'\n                                });"
+}

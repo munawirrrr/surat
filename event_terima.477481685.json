@@ -1,0 +1,6 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "terima",
+	"serverCode": "while($record = $button->getNextSelectedRecord())\n{\n$sql = \"update daftar set status ='sedang diproses' where id=\"   .$record[\"id\"];\n  DB::Exec($sql);\n}",
+	"afterJsCode": "location.reload();"
+}

@@ -1,0 +1,4 @@
+{
+	"name": "print1",
+	"serverCode": "echo \"<script>window.print();</script>\";"
+}

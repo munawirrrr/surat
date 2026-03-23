@@ -1,0 +1,6 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "selesai",
+	"serverCode": "while($record = $button->getNextSelectedRecord())\n{\n$sql = \"update daftar set status ='selesai' where id=\"   .$record[\"id\"];\n  DB::Exec($sql);\n}",
+	"afterJsCode": "location.reload();"
+}

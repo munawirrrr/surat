@@ -1,0 +1,7 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "agenda_kanwil",
+	"serverCode": "$agenda = $params[\"agenda_kanwil\"];\n$records = $params[\"records\"];\n\nforeach ($records as $rec) {\n    $nsm = db_prepare_string($rec[\"nsm\"]);\n    $tahun = db_prepare_string($rec[\"tahun\"]);\n\n    $sql = \"UPDATE daftar SET no_agenda_kanwil = $agenda \n            WHERE nsm = $nsm AND tahun = $tahun\";\n    DB::Exec($sql);\n}",
+	"beforeJsCode": "// Ambil record yang dipilih\nvar selectedRecs = pageObj.getSelectedRecords();\n\nif (selectedRecs.length === 0) {\n    alert(\"Silakan pilih satu baris data.\");\n    return false;\n}\n\n// Jika ingin pakai nilai tetap\nvar agenda_kanwil = \"KANWIL-001\";\n\n// Kirim ke server\najax.setEventValue(\"no_agenda_kanwil\", agenda_kanwil);\najax.setEventValue(\"records\", selectedRecs);\n\najax.setMessage(\"Sedang memproses...\");\nreturn true;",
+	"afterJsCode": "ajax.setMessage(\"Update selesai.\");"
+}

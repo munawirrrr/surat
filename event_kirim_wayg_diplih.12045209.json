@@ -1,0 +1,7 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "kirim_wayg_diplih",
+	"serverCode": "while($record = $button->getNextSelectedRecord()) {\n    $id = $record[\"ID\"];\n\n    \n    // Simpan link WA kalau perlu\n    $wa = \"https://wa.me/\" . urlencode($record[\"nomor Telpon\"]) . \"?text=Pesan+terkirim\";\n    $result[\"list_wa\"][] = $wa;\n}",
+	"beforeJsCode": "params[\"records\"] = ctrl.getSelectedRecords(); // Wajib untuk multi select",
+	"afterJsCode": "if(result.list_wa && result.list_wa.length > 0){\n    for(let i = 0; i < result.list_wa.length; i++){\n        window.open(result.list_wa[i], '_blank');\n    }\n} else {\n    alert(\"Tidak ada link WA yang dikembalikan\");\n}"
+}

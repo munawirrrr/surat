@@ -1,0 +1,5 @@
+{
+	"type": "EVENT_BUTTON",
+	"name": "kembali_ke_daftar",
+	"beforeJsCode": "window.history.go(-2);"
+}

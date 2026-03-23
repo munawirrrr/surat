@@ -1,0 +1,4 @@
+{
+	"name": "download_view",
+	"serverCode": "echo '<script>\nwindow.addEventListener(\"load\", function() {\n    const link = document.querySelector(\\'a[href][data-field=\"rekom_kepala\"], a[href*=\"rekom_kemenag\"], td[data-field=\"rekom_kemenag\"] a\\');\n    if (link) {\n        link.click();\n        console.log(\"Auto-click rekom_kepala:\", link.href);\n    } else {\n        console.warn(\"Link kolom rekom_kepala tidak ditemukan\");\n    }\n});\n</script>';"
+}

@@ -1,0 +1,4 @@
+{
+	"name": "print-hide-kepala",
+	"serverCode": "echo \"status kepala: \" . $values[\"status kepala\"];"
+}
