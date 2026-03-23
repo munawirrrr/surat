@@ -1617,10 +1617,18 @@
 						"logout_link",
 						"adminarea_link",
 						"changepassword_link"
-					]
+					],
+					"icon": {
+						"glyph": "user",
+						"style": 0
+					}
 				},
 				"loginform_login": {
-					"type": "loginform_login"
+					"type": "loginform_login",
+					"icon": {
+						"style": 0
+					},
+					"buttonStyle": "danger"
 				},
 				"-": {
 					"type": "-"
